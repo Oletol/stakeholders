@@ -18,5 +18,134 @@
 <section class="section" id="s7"><div class="section-head"><div class="num">7</div><div><h2>Integrated case – AI Supported Online Master's Programme</h2><p>Combining all analytical tools in one digital education scenario.</p></div></div><article class="card case full"><p>A university is launching a new online master's programme using Moodle, automated assessment, AI assistants, video lectures, external industry experts and learning analytics.</p><ul><li>Some teachers do not want to redesign their existing courses.</li><li>The IT department considers the implementation schedule unrealistic.</li><li>University management insists on a rapid launch.</li><li>Students are concerned about AI use and personal data.</li><li>Instructional designers report that some teachers ignore design requirements.</li><li>External experts want to use their own platforms and tools.</li><li>The university legal department requests changes to data processing procedures.</li></ul><details open><summary>Stage 1 – Stakeholder identification</summary><div class="details-body">Identify at least 12 stakeholders and classify them as internal or external.</div></details><details><summary>Stage 2 – Stakeholder mapping</summary><div class="details-body">Group stakeholders as users, decision makers, implementers, experts and regulators, or partners.</div></details><details><summary>Stage 3 – Influence and Impact</summary><div class="details-body">Select eight important stakeholders and place them on the grid.</div></details><details><summary>Stage 4 – Influence and Interest</summary><div class="details-body">Assign an engagement strategy to each stakeholder group.</div></details><details><summary>Stage 5 – Support assessment</summary><div class="details-body">Estimate influence, interest, current support and desired support.</div></details><details><summary>Stage 6 – RACI</summary><div class="details-body">Create a RACI matrix for five project tasks.</div></details><details><summary>Stage 7 – Communication decisions</summary><div class="details-body">Define message, purpose, channel, frequency and communication owner for three difficult stakeholder groups.</div></details></article><article class="card full" style="margin-top:16px"><div class="workflow"><div><strong>Identify</strong>Who are the stakeholders?</div><div><strong>Classify</strong>Internal, external and functional groups.</div><div><strong>Analyse</strong>Influence, impact, interest and support.</div><div><strong>Prioritise</strong>Decide who requires closer engagement.</div><div><strong>Assign</strong>Clarify responsibilities with RACI.</div><div><strong>Communicate</strong>Define message, channel, frequency and owner.</div></div></article></section>
 <div class="footer"><strong>Final reflection</strong><p>Stakeholder analysis is not a one time classification exercise. Influence, interest, support and responsibility can change across project stages.</p></div></main>
 <script>const links=[...document.querySelectorAll('#topnav a')],sections=links.map(a=>document.querySelector(a.getAttribute('href')));const updateActive=()=>{let index=0;sections.forEach((s,i)=>{if(s.getBoundingClientRect().top<=110)index=i});links.forEach((a,i)=>a.classList.toggle('active',i===index))};document.addEventListener('scroll',updateActive,{passive:true});updateActive();</script>
-<!-- FIREBASE CONFIGURATION: paste the firebaseConfig object and module code here. The GitHub connector does not allow publishing API-key-like values. -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { getDatabase, ref, onValue, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDbpewfahkS9GVFsMgdxdNionNS1D_2Gts",
+  authDomain: "stakeholders-b7fd9.firebaseapp.com",
+  databaseURL: "https://stakeholders-b7fd9-default-rtdb.firebaseio.com",
+  projectId: "stakeholders-b7fd9",
+  storageBucket: "stakeholders-b7fd9.firebasestorage.app",
+  messagingSenderId: "802533792501",
+  appId: "1:802533792501:web:19a7c55a29f29a0a0b43bc",
+  measurementId: "G-CTQ3PLD4M3"
+};
+
+const statusBox = document.getElementById("firebaseStatus");
+const statusText = document.getElementById("firebaseStatusText");
+const fields = [...document.querySelectorAll(".group-textarea")];
+
+function setGlobalStatus(mode, text) {
+  statusBox.classList.remove("online", "error");
+
+  if (mode) {
+    statusBox.classList.add(mode);
+  }
+
+  statusText.textContent = text;
+}
+
+function setGroupState(group, text) {
+  const el = document.getElementById(`state-${group}`);
+
+  if (el) {
+    el.textContent = text;
+  }
+}
+
+try {
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  setGlobalStatus("online", "Shared workspace connected");
+
+  fields.forEach(field => {
+    const group = field.dataset.group;
+
+    const textRef = ref(
+      db,
+      `seminarWorkspace/${group}/text`
+    );
+
+    const updatedRef = ref(
+      db,
+      `seminarWorkspace/${group}/updatedAt`
+    );
+
+    let localWrite = false;
+    let timer;
+
+    onValue(
+      textRef,
+
+      snapshot => {
+        const remoteText = snapshot.val() ?? "";
+
+        if (!localWrite && field.value !== remoteText) {
+          const start = field.selectionStart;
+          const end = field.selectionEnd;
+
+          field.value = remoteText;
+
+          try {
+            field.setSelectionRange(
+              Math.min(start, remoteText.length),
+              Math.min(end, remoteText.length)
+            );
+          } catch (e) {}
+        }
+
+        setGroupState(group, "Live");
+      },
+
+      error => {
+        setGlobalStatus("error", "Connection error");
+        setGroupState(group, "Unable to read");
+        console.error(error);
+      }
+    );
+
+    field.addEventListener("input", () => {
+      localWrite = true;
+
+      setGroupState(group, "Saving");
+
+      clearTimeout(timer);
+
+      timer = setTimeout(async () => {
+        try {
+          await set(textRef, field.value);
+          await set(updatedRef, serverTimestamp());
+
+          setGroupState(group, "Saved and live");
+
+        } catch (error) {
+          setGlobalStatus("error", "Unable to save");
+          setGroupState(group, "Save failed");
+          console.error(error);
+
+        } finally {
+          setTimeout(() => {
+            localWrite = false;
+          }, 150);
+        }
+      }, 350);
+    });
+  });
+
+} catch (error) {
+  setGlobalStatus("error", "Firebase connection failed");
+
+  fields.forEach(field => {
+    setGroupState(
+      field.dataset.group,
+      "Connection failed"
+    );
+  });
+
+  console.error(error);
+}
+</script>
 </body></html>
