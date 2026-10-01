@@ -117,3 +117,14 @@ body.locked > :not(#authGate){display:none !important}
 .file-warning{background:#fff3df;color:#5c3d06;border-bottom:1px solid #f1dfb9;padding:12px 18px;font-size:.92rem;text-align:center}
 .gate-id{margin-top:14px !important;word-break:break-all}
 .gate-id code{background:#f2f4f7;border:1px solid #e4e7ec;border-radius:6px;padding:1px 6px;font-size:.84rem;user-select:all}
+
+/* read-only viewing of another team */
+.group-switch button.mine{border-color:#3f6fb0}
+.group-switch button.mine.active{background:#3f6fb0;border-color:#3f6fb0}
+.view-note{font-size:.84rem;color:#5b3f8a}
+.view-note button{border:none;background:none;color:#294f8a;font:inherit;font-weight:800;cursor:pointer;padding:0;text-decoration:underline}
+body.view-only .group-bar{background:#f8f5fd;border-bottom-color:#e0d5f2}
+body.view-only .ws-btn,body.view-only .row-del,body.view-only .export-btn,body.view-only .export-bar,
+body.view-only .kb-add,body.view-only .kcard .actions,body.view-only .kcard .inline-form{display:none !important}
+body.view-only .ws textarea:disabled,body.view-only .ws input:disabled,body.view-only .ws select:disabled,
+body.view-only .pf input:disabled,body.view-only .kcard :disabled{background:#f6f4fa;color:#344054;opacity:1;cursor:default}

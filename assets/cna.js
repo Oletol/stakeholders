@@ -118,5 +118,5 @@ const TASKS = {
 
 sectionNav();
 let ws = null;
-const G = await initGroup({ onChange: () => ws && ws.onGroupChange() });
+const G = await initGroup({ share: "cna", onChange: () => ws && ws.onGroupChange() });
 ws = createWorkspace({ G, root: "cna", title: "Comprehensive Needs Analysis", components: COMPONENTS, tasks: TASKS });

@@ -153,6 +153,7 @@ export function createWorkspace({ G, root, title, components, tasks }) {
     const instant = el.tagName === "SELECT" || el.type === "checkbox";
     let timer;
     el.addEventListener(instant ? "change" : "input", () => {
+      if (G.readOnly) return;
       el.dataset.dirty = "1";
       status.saving();
       clearTimeout(timer);
@@ -435,6 +436,7 @@ export function createWorkspace({ G, root, title, components, tasks }) {
         inst.body.innerHTML = "";
         inst.r.build(inst.body);
         inst.sig = sig;
+        if (G.readOnly) inst.body.querySelectorAll("input,select,textarea").forEach(e => { e.disabled = true; });
         if (focusRel) {
           const el = inst.body.querySelector(`[data-rel="${CSS.escape(focusRel)}"]`);
           if (el) { el.focus(); if (sel) try { el.setSelectionRange(...sel); } catch (e) {} }

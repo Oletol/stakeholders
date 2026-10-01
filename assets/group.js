@@ -73,7 +73,7 @@ function form(el) {
 
 /* ---------------- session ---------------- */
 
-export async function initGroup({ onChange, profile = true } = {}) {
+export async function initGroup({ onChange, profile = true, share = null } = {}) {
   gate.mount();
 
   if (location.protocol === "file:") {
@@ -93,7 +93,7 @@ export async function initGroup({ onChange, profile = true } = {}) {
 
   const ctx = await new Promise(resolve => runGate(db, resolve));
   gate.close();
-  return startSession(db, ctx, { onChange, profile });
+  return startSession(db, ctx, { onChange, profile, share });
 }
 
 function runGate(db, resolve) {
@@ -262,24 +262,50 @@ export const PROFILE_FIELDS = [
   { key: "clientContact", label: "Client contact", placeholder: "Name and position of the client representative" }
 ];
 
-async function startSession(db, { user, rec, isAdmin }, { onChange, profile }) {
+async function startSession(db, { user, rec, isAdmin }, { onChange, profile, share }) {
   const bar = document.getElementById("groupBar");
   const configGroups = (await db.get("config/groups")) || {};
-  let current = isAdmin ? adminGroup() : rec.group.slice(1);
+  const own = isAdmin ? null : rec.group.slice(1);
+  let current = isAdmin ? adminGroup() : own;
+  let shareOpen = false;          // teacher has opened this page for viewing other teams
+  const company = g => String(configGroups["g" + g]?.company || "");
 
   bar.innerHTML = `
     <div class="group-bar-inner">
       <span class="group-bar-label">${isAdmin ? "Teacher view" : "Your team"}</span>
-      ${isAdmin
-        ? `<div class="group-switch" role="tablist">${GROUPS.map(g => `<button type="button" role="tab" data-g="${g}">Group ${g}</button>`).join("")}</div>`
-        : `<span class="team-name" id="teamName"></span>`}
+      <div class="group-switch" id="groupSwitch" role="tablist"></div>
       <span class="team-members" id="teamMembers"></span>
+      <span class="view-note" id="viewNote"></span>
       <span class="sync-pill" id="syncPill"><span class="sync-dot"></span><span>Connecting…</span></span>
       <span class="user-box">${esc(rec.name || user.email)}${isAdmin ? ` · <a href="admin.html">Admin</a>` : ""} · <button type="button" id="signOutBtn">Sign out</button></span>
     </div>`;
   status.el = bar.querySelector("#syncPill");
   bar.querySelector("#signOutBtn").addEventListener("click", async () => { await db.auth.signOut(); location.reload(); });
   db.onConnection && db.onConnection(ok => ok ? status.online() : status.offline());
+  const sw = bar.querySelector("#groupSwitch");
+
+  function renderSwitch() {
+    if (isAdmin || shareOpen) {
+      sw.innerHTML = GROUPS.map(g => {
+        const mine = g === own;
+        const label = mine ? `Group ${g} · yours` : `Group ${g}`;
+        return `<button type="button" role="tab" data-g="${g}" title="${esc(company(g))}" class="${g === current ? "active" : ""}${mine ? " mine" : ""}">${label}</button>`;
+      }).join("");
+    } else {
+      sw.innerHTML = `<span class="team-name">Group ${own}${company(own) ? " · " + esc(company(own)) : ""}</span>`;
+    }
+    const ro = api.readOnly;
+    document.body.classList.toggle("view-only", ro);
+    bar.querySelector("#viewNote").innerHTML = ro
+      ? `Viewing <b>Group ${current}</b>${company(current) ? " · " + esc(company(current)) : ""} – read only · <button type="button" id="backOwn">Back to my team</button>`
+      : (shareOpen && !isAdmin ? "Viewing of other teams is open" : "");
+    const back = bar.querySelector("#backOwn");
+    if (back) back.addEventListener("click", () => select(own));
+  }
+  sw.addEventListener("click", e => {
+    const b = e.target.closest("[data-g]");
+    if (b && b.dataset.g !== current) select(b.dataset.g);
+  });
 
   const profileBox = profile ? document.getElementById("groupProfile") : null;
   const inputs = {};
@@ -298,11 +324,13 @@ async function startSession(db, { user, rec, isAdmin }, { onChange, profile }) {
     profileBox.querySelectorAll("input").forEach(i => { inputs[i.dataset.key] = i; });
     Object.entries(inputs).forEach(([k, inp]) => {
       inp.addEventListener("input", () => {
+        if (api.readOnly) return;
         clearTimeout(inp._t);
         inp.dataset.dirty = "1";
         status.saving();
+        const g = current;
         inp._t = setTimeout(async () => {
-          try { await db.set(`groups/g${current}/profile/${k}`, inp.value.trim() ? inp.value : null); status.saved(); }
+          try { await db.set(`groups/g${g}/profile/${k}`, inp.value.trim() ? inp.value : null); status.saved(); }
           catch (err) { status.error("Unable to save"); console.error(err); }
           delete inp.dataset.dirty;
         }, 400);
@@ -314,7 +342,9 @@ async function startSession(db, { user, rec, isAdmin }, { onChange, profile }) {
     db, user, isAdmin,
     name: rec.name || user.email,
     get group() { return current; },
-    get company() { return String(configGroups["g" + current]?.company || ""); },
+    get ownGroup() { return own; },
+    get readOnly() { return !isAdmin && current !== own; },
+    get company() { return company(current); },
     profile: {},
     members: {},
     memberNames() { return memberList(this.members); },
@@ -331,16 +361,14 @@ async function startSession(db, { user, rec, isAdmin }, { onChange, profile }) {
       const url = new URL(location.href);
       url.searchParams.set("group", g);
       history.replaceState(null, "", url);
-      bar.querySelectorAll("[data-g]").forEach(b => b.classList.toggle("active", b.dataset.g === g));
-    } else {
-      bar.querySelector("#teamName").textContent = `Group ${g}${api.company ? " · " + api.company : ""}`;
     }
+    renderSwitch();
     unsubs.forEach(u => u && u());
     api.profile = {};
     api.members = {};
     if (profileBox) {
       profileBox.querySelector(".pg-no").textContent = g;
-      Object.values(inputs).forEach(i => { i.value = ""; });
+      Object.values(inputs).forEach(i => { i.value = ""; i.disabled = api.readOnly; });
       inputs.clientOrg.placeholder = api.company || "Organisation or unit";
     }
     unsubs = [
@@ -363,9 +391,15 @@ async function startSession(db, { user, rec, isAdmin }, { onChange, profile }) {
     onChange && onChange(g);
   }
 
-  if (isAdmin) bar.querySelectorAll("[data-g]").forEach(b => b.addEventListener("click", () => {
-    if (b.dataset.g !== current) select(b.dataset.g);
-  }));
+  // the teacher opens or closes viewing of other teams for this page
+  if (!isAdmin && share) {
+    db.sub(`config/share/${share}`, val => {
+      shareOpen = val === true;
+      if (!shareOpen && current !== own) select(own);
+      else renderSwitch();
+    }, err => console.error(err));
+  }
+
   select(current);
   return api;
 }

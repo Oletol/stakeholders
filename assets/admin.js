@@ -84,6 +84,27 @@ if (!G.isAdmin) {
     } catch (err) { status.error("Unable to move the student"); console.error(err); }
   });
 
+  /* viewing other teams' work */
+  const SHARE = [["stakeholder", "Stakeholder Analysis"], ["cna", "Comprehensive Needs Analysis"], ["kanban", "Kanban"]];
+  const shareRows = document.getElementById("shareRows");
+  let share = {};
+  function renderShare() {
+    shareRows.innerHTML = SHARE.map(([k, label]) => {
+      const on = share[k] === true;
+      return `<div class="share-row"><b>${label}</b><span><span class="share-state ${on ? "on" : "off"}">${on ? "Open for viewing" : "Closed"}</span>
+        <button type="button" class="toggle ${on ? "on" : ""}" data-share="${k}">${on ? "Close" : "Open"}</button></span></div>`;
+    }).join("");
+  }
+  shareRows.addEventListener("click", async e => {
+    const b = e.target.closest("[data-share]");
+    if (!b) return;
+    const k = b.dataset.share;
+    status.saving();
+    try { await db.set(`config/share/${k}`, share[k] === true ? null : true); status.saved(); }
+    catch (err) { status.error("Unable to save"); console.error(err); }
+  });
+  db.sub("config/share", v => { share = v || {}; renderShare(); });
+
   db.sub("seminarWorkspace", v => {
     const box = document.getElementById("archiveRows");
     const items = Object.entries(v || {}).filter(([, x]) => x && x.text).sort((a, b) => a[0].localeCompare(b[0]));

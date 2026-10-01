@@ -95,5 +95,5 @@ document.querySelectorAll("button.check").forEach(btn => btn.addEventListener("c
 
 sectionNav();
 let ws = null;
-const G = await initGroup({ profile: false, onChange: () => ws && ws.onGroupChange() });
+const G = await initGroup({ profile: false, share: "stakeholder", onChange: () => ws && ws.onGroupChange() });
 ws = createWorkspace({ G, root: "stakeholder", title: "Stakeholder Analysis", components: COMPONENTS, tasks: TASKS });

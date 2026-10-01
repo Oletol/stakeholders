@@ -56,7 +56,7 @@ async function write(id, patch) {
 
 function cardSignature(t) {
   return [t.status, t.cls, t.type, t.reviewSince, t.due, t.dueOriginal, t.postponedOn, t.postponeReason, t.blocked, t.blockReason,
-    t.actualDate, t.createdAt, openForm.get(t.id) || "", todayISO()].join("|");
+    t.actualDate, t.createdAt, openForm.get(t.id) || "", todayISO(), G.readOnly].join("|");
 }
 
 function textBind(el, id, field, onLocal) {
@@ -161,6 +161,7 @@ function buildCard(t) {
     }
   });
 
+  if (G.readOnly) el.querySelectorAll("input,select,textarea").forEach(x => { x.disabled = true; });
   const formHost = el.querySelector(".form-host");
   if (openForm.get(t.id) === "postpone") formHost.appendChild(postponeForm(t));
   if (openForm.get(t.id) === "block") formHost.appendChild(blockForm(t));
@@ -356,7 +357,7 @@ document.getElementById("addForm").addEventListener("submit", async e => {
 
 /* ---------------- start ---------------- */
 
-G = await initGroup({ profile: false, onChange: () => { if (G) subscribe(); } });
+G = await initGroup({ profile: false, share: "kanban", onChange: () => { if (G) subscribe(); } });
 G.onMembers(() => {
   document.getElementById("memberList").innerHTML = G.memberNames().map(n => `<option value="${esc(n)}">`).join("");
   render();
