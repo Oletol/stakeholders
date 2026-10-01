@@ -84,6 +84,13 @@ if (!G.isAdmin) {
     } catch (err) { status.error("Unable to move the student"); console.error(err); }
   });
 
+  db.sub("seminarWorkspace", v => {
+    const box = document.getElementById("archiveRows");
+    const items = Object.entries(v || {}).filter(([, x]) => x && x.text).sort((a, b) => a[0].localeCompare(b[0]));
+    box.innerHTML = items.length ? items.map(([k, x]) =>
+      `<details><summary>${esc(k.replace("group", "Group "))}</summary><pre>${esc(x.text)}</pre></details>`).join("")
+      : `<p class="muted">No archived texts.</p>`;
+  }, err => console.error(err));
   db.sub("admins", v => { admins = v || {}; renderStudents(); });
   db.sub("config/groups", v => { groups = v || {}; renderTeams(); renderStudents(); });
   db.sub("members", v => { members = v || {}; renderTeams(); });

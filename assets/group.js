@@ -3,6 +3,8 @@
 import { connect, authMessage, todayISO } from "./db.js";
 
 export const GROUPS = ["1", "2", "3", "4", "5"];
+// university addresses only: name@misis.ru and subdomains such as name@edu.misis.ru
+const MISIS_EMAIL = /@([a-z0-9-]+\.)*misis\.ru$/i;
 const STORE_KEY = "stakeholdersAdminGroup";
 
 export function esc(s) {
@@ -120,7 +122,7 @@ function runGate(db, resolve) {
         <p>You need the course code from your teacher.</p>
         <form class="gate-form" novalidate>
           ${field("name", "First and last name", "text", 'autocomplete="name" maxlength="80" required')}
-          ${field("email", "Email", "email", 'autocomplete="email" required')}
+          ${field("email", "University email (@misis.ru)", "email", 'autocomplete="email" required')}
           ${field("password", "Password (at least 6 characters)", "password", 'autocomplete="new-password" required')}
           ${field("code", "Course code", "text", 'autocomplete="off" required')}
           <button class="gate-btn" type="submit">Create account</button>
@@ -130,6 +132,7 @@ function runGate(db, resolve) {
       onSubmit(async f => {
         const v = form(f);
         if (!v.name || !v.email || !v.password || !v.code) return gate.msg("Fill in all fields.");
+        if (!MISIS_EMAIL.test(v.email)) return gate.msg("Use your university email ending in @misis.ru.");
         if (v.password.length < 6) return gate.msg("The password must contain at least 6 characters.");
         pending = { name: v.name, code: v.code };
         await db.auth.signUp(v.email, v.password);
@@ -160,6 +163,7 @@ function runGate(db, resolve) {
           <button class="gate-btn" type="submit">Continue</button>
           <div class="gate-msg" role="alert">${esc(error || "")}</div>
         </form>
+        <p class="gate-note gate-id">Signed in as ${esc(user.email)}<br>Account ID (UID): <code>${esc(user.uid)}</code></p>
         <div class="gate-links"><button type="button" data-act="signout">Sign out</button></div>`);
       onSubmit(async f => {
         const v = form(f);
@@ -205,7 +209,9 @@ function runGate(db, resolve) {
     try { await db.set(`users/${user.uid}/joinCode`, code); }
     catch (err) {
       const e = new Error("bad code");
-      e.userMessage = "The course code is incorrect. Check it with your teacher.";
+      e.userMessage = MISIS_EMAIL.test(user.email || "")
+        ? "The course code is incorrect. Check it with your teacher."
+        : "Registration is open only for university email addresses ending in @misis.ru. Sign out and create an account with your university email.";
       throw e;
     }
   }

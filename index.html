@@ -367,6 +367,14 @@ button.check:hover{background:#213d6d}
 .ws-goto{display:inline-block;margin-top:10px;font-size:.86rem;font-weight:800;color:#294f8a;text-decoration:none}
 .ws-goto:hover{text-decoration:underline}
 @media(max-width:800px){.group-grid{grid-template-columns:1fr}}
+.team-intro{background:linear-gradient(135deg,#f8fbff 0%,#eef4fb 100%);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:0 0 30px;scroll-margin-top:80px}
+.team-intro h2{margin:0 0 6px}
+.team-intro p{margin:0 0 12px;color:var(--muted)}
+.ws-card{margin-top:16px;border-color:#c9d8ec;background:#fcfdff}
+.ws-card .dot{background:var(--green)}
+.ws-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ws-card-head .tag{margin:0}
+.ws-card h3{margin:8px 0 0}
 </style>
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -381,7 +389,7 @@ button.check:hover{background:#213d6d}
 <div class="group-bar" id="groupBar"></div>
 <div class="nav-wrap">
   <nav class="nav" id="topnav">
-    <a href="#workspace">Group Workspace</a>
+    <a href="#workspace">How to work</a>
     <a href="#s1">Stakeholders</a>
     <a href="#s2">Identification</a>
     <a href="#s3">Influence and Impact</a>
@@ -394,11 +402,10 @@ button.check:hover{background:#213d6d}
 
 <main>
 
-<section class="live-workspace" id="workspace">
-<div class="workspace-intro"><h2>Group Workspace</h2>
-<p>Record your group's answers to the in-class cases here. You can edit your own group's box and read the other groups' work for comparison. Everyone sees updates live.</p></div>
-<div class="group-grid"><article class="group-card" data-g="1"><div class="group-meta"><h3>Group 1</h3><span class="group-state" id="state-group1">Waiting for connection</span></div><textarea class="group-textarea" data-group="group1" maxlength="12000" placeholder="Write your group's analysis, decisions and justification here."></textarea></article><article class="group-card" data-g="2"><div class="group-meta"><h3>Group 2</h3><span class="group-state" id="state-group2">Waiting for connection</span></div><textarea class="group-textarea" data-group="group2" maxlength="12000" placeholder="Write your group's analysis, decisions and justification here."></textarea></article><article class="group-card" data-g="3"><div class="group-meta"><h3>Group 3</h3><span class="group-state" id="state-group3">Waiting for connection</span></div><textarea class="group-textarea" data-group="group3" maxlength="12000" placeholder="Write your group's analysis, decisions and justification here."></textarea></article><article class="group-card" data-g="4"><div class="group-meta"><h3>Group 4</h3><span class="group-state" id="state-group4">Waiting for connection</span></div><textarea class="group-textarea" data-group="group4" maxlength="12000" placeholder="Write your group's analysis, decisions and justification here."></textarea></article><article class="group-card" data-g="5"><div class="group-meta"><h3>Group 5</h3><span class="group-state" id="state-group5">Waiting for connection</span></div><textarea class="group-textarea" data-group="group5" maxlength="12000" placeholder="Write your group's analysis, decisions and justification here."></textarea></article></div>
-<p class="workspace-note">Tip: start each answer with the case number, for example “Case 3 – Learning Analytics System”.</p>
+<section class="team-intro" id="workspace">
+<h2>How your team works on this page</h2>
+<p>Under every case there is a <b>Team workspace</b> block. Answers are shared only within your project team and save automatically; matrices and RACI checks are built from your entries. Export a case, or all cases at once, as a PDF for Moodle.</p>
+<button type="button" class="export-btn" data-export="all">Export all cases as PDF</button>
 </section>
 
 <section class="section" id="s1">
@@ -453,9 +460,15 @@ button.check:hover{background:#213d6d}
         <div class="prompt"><strong>Discussion:</strong> Which stakeholder can create the greatest implementation risk?</div>
         <div class="prompt"><strong>Discussion:</strong> Is every user automatically a key stakeholder?</div>
       </div>
-    <a class="ws-goto" href="#workspace">Write your group's answer in the Group Workspace ↑</a>
     </article>
   </div>
+
+  <article class="card ws-card">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s1">Export as PDF</button></div>
+    <h3>Case 1 – your team's analysis</h3>
+    <div class="ws" data-task="s1"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
 </section>
 
 <section class="section" id="s2">
@@ -520,9 +533,15 @@ button.check:hover{background:#213d6d}
           </ul>
         </div>
       </details>
-    <a class="ws-goto" href="#workspace">Write your group's answer in the Group Workspace ↑</a>
     </article>
   </div>
+
+  <article class="card ws-card">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s2">Export as PDF</button></div>
+    <h3>Case 2 – your team's analysis</h3>
+    <div class="ws" data-task="s2"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
 </section>
 
 <section class="section" id="s3">
@@ -583,9 +602,15 @@ button.check:hover{background:#213d6d}
         <div class="prompt">Which group needs special communication and consultation?</div>
         <div class="prompt">What risk appears if the team communicates only with high influence stakeholders?</div>
       </div>
-    <a class="ws-goto" href="#workspace">Write your group's answer in the Group Workspace ↑</a>
     </article>
   </div>
+
+  <article class="card ws-card">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s3">Export as PDF</button></div>
+    <h3>Influence and Impact Grid – your team's placement</h3>
+    <div class="ws" data-task="s3"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
 </section>
 
 <section class="section" id="s4">
@@ -631,9 +656,15 @@ button.check:hover{background:#213d6d}
           <li>Justify two placements that another group could reasonably challenge.</li>
         </ol>
       </div>
-    <a class="ws-goto" href="#workspace">Write your group's answer in the Group Workspace ↑</a>
     </article>
   </div>
+
+  <article class="card ws-card">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s4">Export as PDF</button></div>
+    <h3>Case 3 – your team's matrix</h3>
+    <div class="ws" data-task="s4"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
 </section>
 
 <section class="section" id="s5">
@@ -673,9 +704,15 @@ button.check:hover{background:#213d6d}
       </div>
       <button class="check" data-target="ans1">Show analysis prompt</button>
       <div class="answer" id="ans1">Focus on the combination of influence and resistance. A resistant group with high implementation influence may represent a greater project risk than a formally powerful group with limited operational involvement.</div>
-    <a class="ws-goto" href="#workspace">Write your group's answer in the Group Workspace ↑</a>
     </article>
   </div>
+
+  <article class="card ws-card">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s5">Export as PDF</button></div>
+    <h3>Case 4 – your team's support assessment</h3>
+    <div class="ws" data-task="s5"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
 </section>
 
 <section class="section" id="s6">
@@ -710,7 +747,6 @@ button.check:hover{background:#213d6d}
         <div class="task-title">Task</div>
         <p>Create a RACI matrix. Then identify at least two places where unclear responsibility could cause delay, conflict or duplicated work.</p>
       </div>
-    <a class="ws-goto" href="#workspace">Write your group's answer in the Group Workspace ↑</a>
     </article>
 
     <article class="card full">
@@ -734,6 +770,13 @@ button.check:hover{background:#213d6d}
       </div>
     </article>
   </div>
+
+  <article class="card ws-card">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s6">Export as PDF</button></div>
+    <h3>Case 5 – your team's RACI matrix</h3>
+    <div class="ws" data-task="s6"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
 </section>
 
 <section class="section" id="s7">
@@ -817,7 +860,14 @@ button.check:hover{background:#213d6d}
     </details>
   </article>
 
-  <article class="card full" style="margin-top:16px">
+  
+  <article class="card ws-card" style="margin-top:16px">
+    <div class="ws-card-head"><div class="tag"><span class="dot"></span>Team workspace</div>
+    <button type="button" class="export-btn" data-export="s7">Export as PDF</button></div>
+    <h3>Integrated case – your team's analysis</h3>
+    <div class="ws" data-task="s7"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+  </article>
+<article class="card full" style="margin-top:16px">
     <div class="tag"><span class="dot"></span>Session synthesis</div>
     <h3>A complete stakeholder analysis process</h3>
     <div class="workflow">
@@ -847,6 +897,8 @@ if (location.protocol === "file:") document.addEventListener("DOMContentLoaded",
   document.body.insertBefore(d, document.body.firstChild);
 });
 </script>
-<script type="module" src="assets/seminar.js"></script>
+<script src="assets/vendor/pdfmake.min.js"></script>
+<script src="assets/vendor/vfs_fonts.js"></script>
+<script type="module" src="assets/stakeholder.js"></script>
 </body>
 </html>

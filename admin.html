@@ -31,6 +31,9 @@ input:focus,select:focus{border-color:#6b8fc0;box-shadow:0 0 0 3px rgba(63,111,1
 .tag.warn{background:#fff3df;color:#8a5a0e}
 .tag.bad{background:#fbe9e7;color:#a5281b}
 .scroll{overflow-x:auto}
+.archive details{border:1px solid #d9e1ec;border-radius:12px;margin-top:8px;background:#fff}
+.archive summary{cursor:pointer;padding:10px 12px;font-weight:800;color:#12213f}
+.archive pre{white-space:pre-wrap;margin:0;padding:0 12px 12px;font:inherit;font-size:.9rem;color:#344054}
 .denied{max-width:560px;margin:40px auto;text-align:center}
 </style>
 <link rel="stylesheet" href="assets/site.css">
@@ -58,7 +61,7 @@ input:focus,select:focus{border-color:#6b8fc0;box-shadow:0 0 0 3px rgba(63,111,1
 
 <section class="card">
 <h2>Project teams</h2>
-<p>Enter the internship company for each team. Teams with the same company share its students: a new student is placed in the team of that company with the fewest members (maximum 3 per team).</p>
+<p>Enter the internship company for each team. It appears in the team header and as the default client organisation in the PDFs.</p>
 <div class="scroll"><table>
 <thead><tr><th>Team</th><th style="width:34%">Internship company</th><th>Members</th><th>Open</th></tr></thead>
 <tbody id="teamRows"></tbody>
@@ -67,11 +70,16 @@ input:focus,select:focus{border-color:#6b8fc0;box-shadow:0 0 0 3px rgba(63,111,1
 
 <section class="card">
 <h2>Students</h2>
-<p>To move a student, choose another team. Choose “Not assigned” to let the student pick the company again at the next sign-in.</p>
+<p>New students appear here after registration with the status <b>Waiting for team</b>. Choose a team for each student; the site opens for the student immediately. You can move a student to another team at any time.</p>
 <div class="scroll"><table>
 <thead><tr><th>Name</th><th>Email</th><th>Registered</th><th>Status</th><th style="width:250px">Team</th></tr></thead>
 <tbody id="studentRows"><tr><td colspan="5">Loading…</td></tr></tbody>
 </table></div>
+</section>
+<section class="card">
+<h2>Archive: Group Workspace texts</h2>
+<p>Texts that groups wrote in the earlier version of the Stakeholder Analysis page (one shared box per group). Read only.</p>
+<div id="archiveRows" class="archive"></div>
 </section>
 </main>
 
