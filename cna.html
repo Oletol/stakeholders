@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprehensive Needs Analysis</title>
+<style>
+:root{--navy:#12213f;--blue:#294f8a;--blue2:#3f6fb0;--ink:#1f2937;--muted:#667085;--line:#d9e1ec;--soft:#f5f8fc;--soft2:#eef3f9;--white:#fff;--gold:#b77a18;--green:#2f6f5e;--red:#8d4550;--radius:18px;--shadow:0 12px 32px rgba(18,33,63,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:#edf2f8;line-height:1.62}
+.nav-wrap{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 4px 16px rgba(18,33,63,.04)}
+.nav{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;gap:8px;overflow:auto}.nav a{text-decoration:none;white-space:nowrap;font-size:.88rem;font-weight:750;color:#344054;padding:9px 12px;border-radius:10px}.nav a:hover,.nav a.active{background:var(--soft2);color:var(--navy)}
+main{max-width:1180px;margin:0 auto;padding:24px 18px 80px}.section{margin:0 0 36px;scroll-margin-top:80px}
+.component-banner{display:grid;grid-template-columns:54px 1fr;gap:16px;align-items:center;margin-bottom:16px}.component-no{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:850}
+.component-title{background:linear-gradient(135deg,#eef4fb 0%,#dfe9f4 100%);border:1px solid var(--line);border-radius:16px;padding:16px 20px}.component-title h2{margin:0;color:var(--navy);font-size:1.45rem;line-height:1.2}.component-title p{margin:5px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}.theory{grid-column:span 5}.practice{grid-column:span 7}.half{grid-column:span 6}.full{grid-column:1/-1}
+.card h3{margin:0 0 10px;color:var(--navy);font-size:1.06rem}.card h4{margin:18px 0 8px;color:#2d4165;font-size:.96rem}.tag{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#465873;margin-bottom:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--blue2)}.practice .dot{background:var(--gold)}.warning .dot{background:var(--red)}
+.callout{border-left:4px solid var(--blue2);background:var(--soft);padding:14px 16px;border-radius:12px;margin:14px 0}.callout strong{color:var(--navy)}ul,ol{padding-left:22px}li+li{margin-top:6px}
+.task{margin-top:14px;padding:16px;border:1px dashed #b7c5d8;border-radius:14px;background:#fbfcfe}.task-title{font-weight:850;color:#2f4367;margin-bottom:7px}
+.prompt-list{display:grid;gap:9px;margin-top:12px}.prompt{padding:11px 12px;border-radius:10px;background:#f6f8fb;border:1px solid #e5eaf1}
+table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:12px;background:#fff}th,td{padding:12px 14px;text-align:left;vertical-align:top;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}th{background:#edf3fb;color:var(--navy);font-size:.88rem}tr:last-child td{border-bottom:none}th:last-child,td:last-child{border-right:none}
+details{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}summary{cursor:pointer;padding:14px 16px;font-weight:850;color:var(--navy);background:#f7f9fc;list-style:none}.details-body{padding:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}.chip{padding:7px 10px;border-radius:999px;background:#eef3f9;border:1px solid #d8e2ef;font-size:.86rem}
+.canvas{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}.canvas-box{border:1px solid var(--line);border-radius:14px;padding:15px;background:#fbfcfe}.canvas-box strong{display:block;color:var(--navy);margin-bottom:6px}
+.reflection{background:linear-gradient(135deg,#172a4f 0%,#244b84 100%);color:#edf3fb;border-radius:18px;padding:22px}.reflection h3{color:#fff;margin:0 0 8px}.reflection p{margin:0}
+
+
+
+/* CNA overview */
+.cna-overview{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:36px}
+.cna-head{background:#46728f;color:#fff;text-align:center;padding:18px 20px}
+.cna-head h1{margin:0;font-size:clamp(1.6rem,4vw,2.5rem);line-height:1.1;letter-spacing:-.01em}
+.cna-head p{margin:6px 0 0;color:#e3edf4;font-size:.95rem}
+.cna-steps{display:grid;gap:6px;padding:6px;background:#fff}
+.cna-step{display:grid;grid-template-columns:150px 1fr 1fr;gap:16px;align-items:center;text-decoration:none;color:var(--ink);background:#a3b9c8;border-radius:6px;padding:14px 18px;transition:filter .15s}
+.cna-step:nth-child(4){background:#d3dee6}
+.cna-step:hover{filter:brightness(1.05)}
+.cna-step .comp{font-weight:850;color:#12213f}
+.cna-step .focus{font-size:.92rem}
+.cna-step .out{font-size:.86rem;color:#22344f}
+.cna-step .out b{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#3d5370}
+@media(max-width:760px){.cna-step{grid-template-columns:1fr;gap:4px}}
+.err-type{display:inline-block;font-size:.7rem;font-weight:850;text-transform:uppercase;letter-spacing:.05em;color:#8d4550;background:#fbeff1;border:1px solid #f0d6db;border-radius:6px;padding:2px 7px;margin-bottom:6px}
+.qpair{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;border:1px solid #e5eaf1;border-radius:12px;background:#f9fbfd}
+.qpair .weak{color:#7a3541}.qpair .better{color:#2f6f5e}
+@media(max-width:700px){.qpair{grid-template-columns:1fr}}
+
+</style>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-bar"><div class="site-bar-inner">
+<a class="site-title" href="index.html" data-keep-group>Stakeholder Communication</a>
+<nav class="site-links" aria-label="Site pages">
+<a href="index.html" data-keep-group>Stakeholder Analysis</a>
+<a href="cna.html" data-keep-group aria-current="page">Comprehensive Needs Analysis</a>
+<a href="kanban.html" data-keep-group>Kanban</a>
+</nav></div></header>
+<div class="group-bar" id="groupBar"></div>
+<div class="nav-wrap">
+<nav class="nav" id="topnav">
+<a href="#overview">Overview</a>
+<a href="#c11">1.1 Needs Assessment</a>
+<a href="#c12">1.2 Needs Research</a>
+<a href="#c13">1.3 Needs Limitations</a>
+<a href="#c14">1.4 Needs Analysis</a>
+</nav>
+</div>
+
+<main>
+
+<section class="group-profile" id="groupProfile"></section>
+
+<section class="section" id="overview">
+<div class="cna-overview">
+<div class="cna-head">
+<h1>Comprehensive Needs Analysis</h1>
+<p>Four components that move from the client and context to the real target audience</p>
+</div>
+<div class="cna-steps">
+<a class="cna-step" href="#c11"><span class="comp">Component 1.1</span><span class="focus">Conduct needs assessment: client, market and stakeholders of the internship organisation</span><span class="out"><b>Output</b>Client profile, market scan, stakeholder map, client questions</span></a>
+<a class="cna-step" href="#c12"><span class="comp">Component 1.2</span><span class="focus">Conduct needs research: what existing research says about comparable learners</span><span class="out"><b>Output</b>Literature based, provisional learner profile</span></a>
+<a class="cna-step" href="#c13"><span class="comp">Component 1.3</span><span class="focus">Conduct needs limitations: documents, standards and technical conditions</span><span class="out"><b>Output</b>Documentation inventory, limitations register</span></a>
+<a class="cna-step" href="#c14"><span class="comp">Component 1.4</span><span class="focus">Conduct needs analysis: empirical study of the real target audience</span><span class="out"><b>Output</b>Research questions, piloted questionnaire, fieldwork package</span></a>
+</div>
+</div>
+</section>
+
+<section class="section" id="c11">
+<div class="component-banner">
+<div class="component-no">1.1</div>
+<div class="component-title"><h2>Conduct Needs Assessment</h2><p>Analyse the client, market and stakeholders connected with your placement context.</p></div>
+</div>
+<div class="export-bar"><button type="button" class="export-btn" data-export="1.1">Export Component 1.1 as PDF</button><span class="export-note">Includes your group profile and all answers in this component.</span></div>
+
+<div class="grid">
+<article class="card practice full">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 1 – Create a client profile</h3>
+<p>Create a concise profile of the client organisation or unit you will work with during your practice.</p>
+<div class="task">
+<ol>
+<li>Identify the organisation or unit.</li>
+<li>Describe its core activity.</li>
+<li>Identify the educational product, service or area you may work with.</li>
+<li>Identify the people who make decisions about the project.</li>
+<li>Identify the people who can provide you with data, documents and access to participants.</li>
+<li>Identify any known expectations, priorities or constraints stated by the client.</li>
+</ol>
+</div>
+
+<div class="ws" data-task="t1"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 2 – Conduct a market scan</h3>
+<p>Collect external evidence that helps you understand the context in which your client operates.</p>
+<div class="task">
+<ol>
+<li>Identify 3–5 comparable programmes, courses, services or organisations.</li>
+<li>Identify professional, labour market or educational expectations relevant to your context.</li>
+<li>Identify at least two technological or methodological trends.</li>
+<li>Identify one gap, weakness or unmet need visible in the market.</li>
+<li>Record every finding together with its source.</li>
+</ol>
+</div>
+
+<div class="ws" data-task="t2"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 3 – Build a stakeholder map</h3>
+<p>Map the stakeholders of the organisation where you do your internship. Use the tools you practised on the Stakeholder Analysis page, now applied to your real project.</p>
+<div class="chips">
+<span class="chip">Decision makers</span>
+<span class="chip">Users</span>
+<span class="chip">Implementers</span>
+<span class="chip">Experts and regulators</span>
+<span class="chip">Partners</span>
+</div>
+<div class="task">
+<ol>
+<li>Identify at least 10 stakeholders.</li>
+<li>Classify them as internal or external and by role.</li>
+<li>Select the project stage you are analysing and rate each stakeholder's influence, impact, interest and support.</li>
+<li>Check the Influence and Impact Grid and the Influence and Interest Matrix that are built from your ratings.</li>
+<li>Allocate responsibilities with a RACI matrix for the key tasks of each project stage.</li>
+<li>Identify stakeholders whose interests may conflict.</li>
+<li>Identify which stakeholders you need to involve directly during your internship.</li>
+</ol>
+</div>
+<div class="ws" data-task="t3"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Client interview preparation</div>
+<h3>Task 4 – Prepare questions for the client</h3>
+<p>Prepare a short set of questions that will help you understand the client’s expectations, priorities, available resources and project boundaries.</p>
+
+<h4>Prepare your questions around these areas</h4>
+<div class="chips">
+<span class="chip">Current situation</span>
+<span class="chip">Expected result</span>
+<span class="chip">Success criteria</span>
+<span class="chip">Available data</span>
+<span class="chip">Resources</span>
+<span class="chip">Constraints</span>
+<span class="chip">Stakeholders</span>
+<span class="chip">Communication</span>
+</div>
+
+<div class="task">
+<ol>
+<li>Write 8–12 questions.</li>
+<li>Use open questions when you need explanations or examples.</li>
+<li>Use specific questions when you need facts, dates, documents or responsibilities.</li>
+<li>Avoid questions that suggest the answer.</li>
+<li>Do not ask for information you can obtain from public documents.</li>
+<li>Order the questions from general context to specific project details.</li>
+</ol>
+</div>
+
+<details>
+<summary>Examples of useful client questions</summary>
+<div class="details-body">
+<ul>
+<li>What result would you consider successful at the end of this project?</li>
+<li>What problems or limitations are currently most important for you?</li>
+<li>Which stakeholders should be involved in the project and why?</li>
+<li>What data or documents can you provide?</li>
+<li>What existing educational materials or solutions are already in use?</li>
+<li>What organisational, technical or legal restrictions should we consider?</li>
+<li>Who will approve the final result?</li>
+<li>How would you prefer us to report progress during the practice period?</li>
+</ul>
+</div>
+</details>
+
+<div class="ws" data-task="t4"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+
+</div>
+</section>
+
+<section class="section" id="c12">
+<div class="component-banner">
+<div class="component-no">1.2</div>
+<div class="component-title"><h2>Conduct Needs Research</h2><p>Build an evidence based profile of the target audience using literature, existing research and available secondary data.</p></div>
+</div>
+<div class="export-bar"><button type="button" class="export-btn" data-export="1.2">Export Component 1.2 as PDF</button><span class="export-note">Includes your group profile and all answers in this component.</span></div>
+
+<div class="grid">
+<article class="card theory">
+<div class="tag"><span class="dot"></span>Target audience research</div>
+<h3>Research before direct contact with the audience</h3>
+<p>This stage develops a provisional profile of the target audience from secondary evidence. The aim is to understand what is already known about comparable learners before designing an empirical study with the real audience.</p>
+
+<h4>Possible evidence sources</h4>
+<ul>
+<li>Academic journal articles and systematic reviews</li>
+<li>Research reports and sector studies</li>
+<li>Previous institutional surveys</li>
+<li>Published learner analytics or participation data</li>
+<li>Research on comparable professional or educational teams</li>
+<li>Previous course evaluations, if available</li>
+</ul>
+
+<h4>Profile dimensions</h4>
+<div class="chips">
+<span class="chip">Background</span>
+<span class="chip">Prior knowledge</span>
+<span class="chip">Motivation</span>
+<span class="chip">Goals</span>
+<span class="chip">Digital competence</span>
+<span class="chip">Learning behaviour</span>
+<span class="chip">Typical difficulties</span>
+<span class="chip">Barriers</span>
+<span class="chip">Assessment experience</span>
+<span class="chip">Language proficiency (CEFR)</span>
+<span class="chip">Target language situations</span>
+</div>
+
+<div class="callout"><strong>CEFR as a shared reference:</strong> describe language proficiency with the CEFR Companion Volume (Council of Europe, 2020). It groups communicative activities into reception, production, interaction and mediation. Record the likely level for each activity type, not one overall level: a learner may read professional texts at B2 but speak at B1.</div>
+
+<div class="callout"><strong>Important:</strong> statements based on literature describe comparable populations, not your real audience. They remain provisional until checked empirically.</div>
+</article>
+
+<article class="card practice">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 5 – Build a literature based audience profile</h3>
+<p>Find and analyse research that can help you describe a learner population comparable to the audience in your placement setting.</p>
+
+<div class="task">
+<ol>
+<li>Find at least 4 relevant academic or research based sources.</li>
+<li>Extract one useful finding from each source.</li>
+<li>Classify the finding by profile dimension.</li>
+<li>Explain why the finding may matter for educational design.</li>
+<li>Mark whether it must be verified with the real target audience.</li>
+</ol>
+</div>
+
+<div class="ws" data-task="t5"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card half">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 6 – Create a provisional learner profile</h3>
+<p>Synthesise the literature into a concise evidence based description of the target audience.</p>
+<div class="task">
+<p>Your profile should contain at least:</p>
+<ul>
+<li>likely educational or professional background;</li>
+<li>likely goals and motivations;</li>
+<li>likely prior experience;</li>
+<li>likely CEFR level for reception, production, interaction and mediation;</li>
+<li>target situations, genres and texts in which learners use the language;</li>
+<li>likely digital practices;</li>
+<li>likely difficulties and barriers;</li>
+<li>aspects that remain unknown.</li>
+</ul>
+</div>
+<div class="ws" data-task="t6"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card half">
+<div class="tag"><span class="dot"></span>Critical review</div>
+<h3>Task 7 – Separate evidence from projection</h3>
+<div class="ws" data-task="t7"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+
+</div>
+</section>
+
+
+<section class="section" id="c13">
+<div class="component-banner">
+<div class="component-no">1.3</div>
+<div class="component-title"><h2>Conduct Needs Limitations</h2><p>Identify legal, regulatory, institutional and technical limitations that define what the educational solution may and may not do.</p></div>
+</div>
+<div class="export-bar"><button type="button" class="export-btn" data-export="1.3">Export Component 1.3 as PDF</button><span class="export-note">Includes your group profile and all answers in this component.</span></div>
+
+<div class="grid">
+<article class="card theory">
+<div class="tag"><span class="dot"></span>Documentation and constraints</div>
+<h3>Limitations as formal boundaries</h3>
+<p>This stage is based on documents rather than learner preferences. The aim is to identify formal requirements and restrictions that constrain the future educational solution.</p>
+
+<h4>Documents may include</h4>
+<ul>
+<li>Federal and institutional regulations</li>
+<li>Educational and professional standards</li>
+<li>Language proficiency frameworks (CEFR) and required target levels</li>
+<li>Programme specifications and curricula</li>
+<li>Assessment regulations</li>
+<li>Accessibility requirements</li>
+<li>Data protection and privacy rules</li>
+<li>Academic integrity policies</li>
+<li>Internal organisational procedures</li>
+<li>LMS, software and information security requirements</li>
+<li>Documentation related to workload, scheduling or certification</li>
+</ul>
+
+<div class="callout"><strong>Key distinction:</strong> a limitation is not simply a problem. It is a condition the future solution must respect or work within.</div>
+</article>
+
+<article class="card practice">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 8 – Build a documentation inventory</h3>
+<p>Identify which documents govern the practice setting and where each document can be obtained.</p>
+<div class="ws" data-task="t8"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 9 – Extract limitations and design requirements</h3>
+<p>For each relevant document, identify the exact requirement and explain how it limits or shapes future design decisions.</p>
+<div class="ws" data-task="t9"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card half">
+<div class="tag"><span class="dot"></span>Critical review</div>
+<h3>Task 10 – Identify conflicts between requirements</h3>
+<div class="task">
+<p>Find at least one case where two requirements, stakeholder expectations or practical conditions may conflict.</p>
+</div>
+<div class="ws" data-task="t10"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card half">
+<div class="tag"><span class="dot"></span>Group output</div>
+<h3>Task 11 – Create a limitations register</h3>
+<div class="ws" data-task="t11"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+</div>
+</section>
+
+
+<section class="section" id="c14">
+<div class="component-banner">
+<div class="component-no">1.4</div>
+<div class="component-title"><h2>Conduct Needs Analysis</h2><p>Design an empirical study of the real target audience and prepare a questionnaire that can validate or challenge previous assumptions.</p></div>
+</div>
+<div class="export-bar"><button type="button" class="export-btn" data-export="1.4">Export Component 1.4 as PDF</button><span class="export-note">Includes your group profile and all answers in this component.</span></div>
+
+<div class="grid">
+<article class="card theory">
+<div class="tag"><span class="dot"></span>Empirical target audience analysis</div>
+<h3>Design the research for your real target audience</h3>
+<p>Use the findings from market analysis, stakeholder analysis, literature and documentation to formulate research questions for your real target audience.</p>
+
+<h4>The questionnaire should investigate</h4>
+<ul>
+<li>Actual tasks and situations learners face</li>
+<li>Frequency of those tasks</li>
+<li>Current level of confidence or competence</li>
+<li>Self-assessed proficiency using CEFR “can do” statements</li>
+<li>Target communicative situations, genres and language activities</li>
+<li>Specific difficulties and barriers</li>
+<li>Current strategies and tools</li>
+<li>Previous learning experience</li>
+<li>Access to technology and organisational constraints</li>
+<li>Priorities from the learners' perspective</li>
+</ul>
+
+<div class="callout"><strong>Avoid preference only surveys:</strong> “Do you like videos?” is less useful than “How often do you need to review complex material independently and what format do you currently use?”</div>
+</article>
+
+<article class="card practice">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 12 – Define research questions</h3>
+<p>Before writing questionnaire items, formulate the questions your team actually needs to answer.</p>
+<div class="ws" data-task="t12"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card half">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 13 – Choose question types</h3>
+
+<div class="chips">
+<span class="chip">Single choice</span>
+<span class="chip">Multiple choice</span>
+<span class="chip">Frequency scale</span>
+<span class="chip">Likert scale</span>
+<span class="chip">Ranking</span>
+<span class="chip">Open response</span>
+</div>
+<div class="task">
+<p>Use closed questions where comparability matters and open questions where you need explanations, examples or unexpected needs.</p>
+</div>
+<div class="ws" data-task="t13"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card half">
+<div class="tag"><span class="dot"></span>Quality check</div>
+<h3>Task 14 – Improve weak questions</h3>
+<p>Each weak item below contains a typical design error. Study the improved version, then find and rewrite at least three weak items in your own draft.</p>
+<div class="callout"><strong>Questionnaire language:</strong> if respondents' English is limited, write the questionnaire in their first language. Otherwise answers reflect reading proficiency rather than needs.</div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Examples – weak and better items</div>
+<div class="prompt-list">
+<div class="qpair"><div><span class="err-type">Vague frequency</span><div class="weak"><strong>Weak:</strong> Do you often use English at work?</div></div><div class="better"><strong>Better:</strong> In the past month, how often did you use English for each of these tasks: emails, online meetings, reading reports, presentations? (never / once or twice / weekly / daily)</div></div>
+<div class="qpair"><div><span class="err-type">Double-barrelled</span><div class="weak"><strong>Weak:</strong> How confident are you in reading and writing professional emails in English?</div></div><div class="better"><strong>Better:</strong> Two separate items: “How confident are you when <em>reading</em> professional emails in English?” and “… when <em>writing</em> them?”</div></div>
+<div class="qpair"><div><span class="err-type">Leading</span><div class="weak"><strong>Weak:</strong> Don't you agree that speaking practice is the most important part of an English course?</div></div><div class="better"><strong>Better:</strong> Rank these activities by how often you need them in your work: speaking in meetings, writing emails, reading documents, listening to presentations.</div></div>
+<div class="qpair"><div><span class="err-type">Unanchored self-assessment</span><div class="weak"><strong>Weak:</strong> Is your English good?</div></div><div class="better"><strong>Better:</strong> CEFR “can do” statement: “I can follow the main points of a work meeting in English when people speak clearly.” (not at all / with difficulty / quite well / easily)</div></div>
+<div class="qpair"><div><span class="err-type">Preference only</span><div class="weak"><strong>Weak:</strong> Do you like learning English with videos?</div></div><div class="better"><strong>Better:</strong> When you need to understand a long English presentation or lecture, what do you usually do? (select all that apply)</div></div>
+<div class="qpair"><div><span class="err-type">Professional jargon</span><div class="weak"><strong>Weak:</strong> Do you have difficulties with mediation tasks?</div></div><div class="better"><strong>Better:</strong> How often do you need to summarise an English document in Russian for a colleague or manager?</div></div>
+</div>
+<h4 style="margin-top:20px">Task 14 – Your rewritten items</h4>
+<div class="ws" data-task="t14"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 15 – Draft the questionnaire</h3>
+<p>Create a first version of the questionnaire for your real target audience.</p>
+
+<table>
+<thead><tr><th>Section</th><th>Purpose</th><th>Recommended item types</th></tr></thead>
+<tbody>
+<tr><td>Background</td><td>Describe the respondent without collecting unnecessary personal data.</td><td>Single choice, multiple choice</td></tr>
+<tr><td>Current tasks</td><td>Identify what learners actually need to do.</td><td>Frequency scale, multiple choice</td></tr>
+<tr><td>Language use and self-assessment</td><td>Identify target situations and estimate proficiency with CEFR “can do” statements. Self-assessment complements placement test results; it does not replace them.</td><td>Frequency scale, self-assessment grid (CEFR descriptors)</td></tr>
+<tr><td>Difficulties</td><td>Identify barriers and performance problems.</td><td>Likert scale, multiple choice, open response</td></tr>
+<tr><td>Current strategies</td><td>Understand what learners already do to solve the problem.</td><td>Multiple choice, open response</td></tr>
+<tr><td>Priorities</td><td>Identify what matters most from the audience perspective.</td><td>Ranking, Likert scale</td></tr>
+<tr><td>Open feedback</td><td>Capture needs not anticipated by the research team.</td><td>Open response</td></tr>
+</tbody>
+</table>
+<h4 style="margin-top:20px">Your questionnaire items</h4>
+<div class="ws" data-task="t15"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Quality check</div>
+<h3>Task 16 – Check ethics and pilot the questionnaire</h3>
+<h4>Ethics checklist</h4>
+<div class="ws" data-task="t16" data-part="ethics"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+<h4>Pilot</h4>
+<div class="task">
+<ol>
+<li>Ask 2–3 people from the target audience, or a very similar group, to complete the questionnaire.</li>
+<li>Ask them to think aloud: what do they understand by each question?</li>
+<li>Record completion time.</li>
+<li>Revise unclear, ambiguous or unnecessary items.</li>
+</ol>
+</div>
+<div class="ws" data-task="t16" data-part="pilot"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Final output</div>
+<h3>Task 17 – Prepare the fieldwork package</h3>
+<p>The final questionnaire (Task 15), consent text and pilot log (Task 16) are added to the PDF automatically. Complete the remaining elements of the package.</p>
+<div class="ws" data-task="t17"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+
+</div>
+</section>
+
+
+
+
+</main>
+
+<script src="assets/vendor/pdfmake.min.js"></script>
+<script src="assets/vendor/vfs_fonts.js"></script>
+<script>
+/* Shown only when a page is opened directly from disk, where sign-in and live data cannot work */
+if (location.protocol === "file:") document.addEventListener("DOMContentLoaded", function () {
+  var d = document.createElement("div");
+  d.className = "file-warning";
+  d.innerHTML = "<b>This page is opened as a file from the computer.</b> Sign-in, answer fields and live data work only on the published website, or in Visual Studio Code via <b>Go Live</b> (Live Server extension).";
+  document.body.insertBefore(d, document.body.firstChild);
+});
+</script>
+<script type="module" src="assets/cna.js"></script>
+</body>
+</html>

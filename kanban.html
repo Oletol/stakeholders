@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Kanban</title>
+<style>
+:root{--navy:#12213f;--blue2:#3f6fb0;--ink:#1f2937;--muted:#667085;--line:#d9e1ec;--soft:#f5f8fc;--soft2:#eef3f9;--radius:18px;--shadow:0 12px 32px rgba(18,33,63,.08);
+  --c-expedite:#c0392b;--c-fixed:#d48a0f;--c-standard:#3f6fb0;--c-intangible:#8a96a8}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:#edf2f8;line-height:1.55}
+main{max-width:1280px;margin:0 auto;padding:24px 18px 80px}
+h1{margin:0;color:var(--navy);font-size:1.6rem;line-height:1.2}
+.intro{background:linear-gradient(135deg,#f8fbff 0%,#eef4fb 100%);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px}
+.intro p{margin:6px 0 0;color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:16px}
+.card h2{margin:0 0 10px;color:var(--navy);font-size:1.05rem}
+
+/* legend */
+.legend-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.legend-item{border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;padding:10px 12px;font-size:.86rem;background:#fbfcfe}
+.legend-item b{display:block;color:var(--navy)}
+.legend-item span{color:var(--muted)}
+.status-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-size:.84rem;color:var(--muted);align-items:center}
+details.legend summary{cursor:pointer;font-weight:850;color:var(--navy);list-style:none}
+details.legend summary::-webkit-details-marker{display:none}
+details.legend summary::after{content:" ▾";color:var(--muted)}
+details.legend[open] summary{margin-bottom:12px}
+
+/* add form */
+.add-form{display:grid;grid-template-columns:2.2fr 1fr 1.2fr 1fr 1.2fr auto;gap:10px;align-items:end}
+.add-form label{display:block}
+.add-form input,.add-form select{width:100%}
+.btn{border:none;background:var(--navy);color:#fff;border-radius:10px;padding:10px 16px;font:inherit;font-weight:800;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#213d6d}
+.form-msg{margin-top:8px;font-size:.84rem;font-weight:700;color:#8d4550;min-height:1.2em}
+
+/* workload */
+.member-load{display:flex;flex-wrap:wrap;gap:8px}
+.member-load span{padding:6px 10px;border-radius:999px;background:#fff;border:1px solid #dce4ef;font-size:.8rem;color:#42526b}
+.member-load span b{color:var(--navy)}
+.member-load .warn{border-color:#f0d6db;background:#fff7f8;color:#7a3541}
+
+/* board */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.column[data-col=review]{background:#faf8fe;border-color:#e3dbf3}
+.type-badge{background:#fff;color:#344054;border-color:#cfd8e6}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.filter-btn{border:1px solid #d9e1ec;background:#fff;color:#344054;border-radius:999px;padding:6px 11px;font:inherit;font-size:.8rem;font-weight:800;cursor:pointer}
+.filter-btn span{color:#98a2b3;font-weight:700;margin-left:2px}
+.filter-btn.active{background:#12213f;color:#fff;border-color:#12213f}
+.filter-btn.active span{color:#c9d5e4}
+.kcard select.k-type{width:100%}
+.column{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:12px;min-height:320px}
+.column-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.column-head h3{margin:0;font-size:.98rem;color:var(--navy)}
+.count{min-width:26px;height:26px;display:grid;place-items:center;padding:0 7px;border-radius:999px;background:#e8eef6;color:#3b4f6d;font-size:.78rem;font-weight:850}
+.col-empty{color:#98a2b3;font-size:.86rem;text-align:center;padding:24px 8px;border:1px dashed #d0d9e6;border-radius:12px}
+
+.kcard{position:relative;background:#fff;border:1px solid #dbe3ee;border-left:6px solid var(--c-standard);border-radius:12px;padding:11px 12px 12px;margin-bottom:10px;box-shadow:0 4px 12px rgba(18,33,63,.05)}
+.kcard.cls-expedite{border-left-color:var(--c-expedite)}
+.kcard.cls-fixed{border-left-color:var(--c-fixed)}
+.kcard.cls-standard{border-left-color:var(--c-standard)}
+.kcard.cls-intangible{border-left-color:var(--c-intangible)}
+.kcard.is-blocked{background:#fff7f8;border-color:#ecc5cc}
+.kcard.is-overdue{box-shadow:0 0 0 2px #e7a3ad inset,0 4px 12px rgba(18,33,63,.05)}
+.kcard.is-done{opacity:.92}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;font-weight:850;border:1px solid transparent;white-space:nowrap}
+.bc-expedite{background:#fbe9e7;color:#a5281b;border-color:#f3cdc8}
+.bc-fixed{background:#fff3df;color:#8a5a0e;border-color:#f1dfb9}
+.bc-standard{background:#e9f0fa;color:#294f8a;border-color:#cddbeb}
+.bc-intangible{background:#f0f2f5;color:#556274;border-color:#dde2e9}
+.bs-ok{background:#eaf3ef;color:#2f6f5e;border-color:#cfe2d9}
+.bs-soon{background:#fff3df;color:#8a5a0e;border-color:#f1dfb9}
+.bs-over{background:#fbe9e7;color:#a5281b;border-color:#f3cdc8}
+.bs-post{background:#f3eefb;color:#5b3f8a;border-color:#e0d5f2}
+.bs-block{background:#a5281b;color:#fff}
+.bs-done{background:#eaf3ef;color:#2f6f5e;border-color:#cfe2d9}
+.bs-late{background:#fff3df;color:#8a5a0e;border-color:#f1dfb9}
+.kcard textarea.k-text{width:100%;min-height:52px;border:none;resize:vertical;font:inherit;font-weight:650;line-height:1.4;color:var(--ink);background:transparent;outline:none;padding:0}
+.kcard textarea.k-text:focus{background:#fbfcfe;box-shadow:0 0 0 2px rgba(63,111,176,.15);border-radius:6px}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0 8px;font-size:.8rem}
+.dates div{background:#f8fafc;border:1px solid #e5eaf1;border-radius:8px;padding:5px 8px}
+.dates small{display:block;font-size:.66rem;font-weight:850;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.dates s{color:#98a2b3}
+.post-note{font-size:.78rem;color:#5b3f8a;background:#f8f5fd;border:1px solid #e0d5f2;border-radius:8px;padding:6px 8px;margin-bottom:8px}
+.block-note{font-size:.78rem;color:#7a3541;background:#fff;border:1px solid #ecc5cc;border-radius:8px;padding:6px 8px;margin-bottom:8px}
+.kb input[type=text],.kb input[type=url],.kb input[type=date]{width:100%}
+.kfield{margin-top:7px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.chip{padding:3px 8px;border-radius:999px;background:#e9f0fa;border:1px solid #cddbeb;color:#294f8a;font-size:.74rem;font-weight:800}
+.result-link{display:inline-block;margin-top:5px;font-size:.8rem;color:#294f8a;font-weight:750;text-decoration:none}
+.result-link:hover{text-decoration:underline}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.abtn{border:1px solid var(--line);background:#f8fafc;color:#3b4f6d;border-radius:8px;padding:6px 8px;cursor:pointer;font:inherit;font-size:.76rem;font-weight:800}
+.abtn:hover{background:#eef3f9}
+.abtn.warn{color:#5b3f8a;border-color:#e0d5f2;background:#faf7fe}
+.abtn.danger{color:#7a3541;background:#fff7f8;border-color:#ecd2d7;margin-left:auto}
+.inline-form{margin-top:9px;padding:10px;border:1px dashed #c9b8e6;border-radius:10px;background:#faf7fe}
+.inline-form.block{border-color:#ecc5cc;background:#fff7f8}
+.inline-form .row{display:grid;gap:6px}
+.inline-form p{margin:0 0 6px;font-size:.78rem;color:var(--muted)}
+.inline-form .err{color:#8d4550;font-size:.76rem;font-weight:800;min-height:1em}
+.footnote{font-size:.84rem;color:var(--muted);margin-top:12px}
+
+@media(max-width:1000px){.legend-grid{grid-template-columns:repeat(2,1fr)}.add-form{grid-template-columns:1fr 1fr}.add-form .wide{grid-column:1/-1}}
+@media(max-width:1150px){.board{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.board{grid-template-columns:1fr}}
+@media(max-width:560px){.legend-grid,.add-form{grid-template-columns:1fr}main{padding-left:12px;padding-right:12px}}
+</style>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-bar"><div class="site-bar-inner">
+<a class="site-title" href="index.html" data-keep-group>Stakeholder Communication</a>
+<nav class="site-links" aria-label="Site pages">
+<a href="index.html" data-keep-group>Stakeholder Analysis</a>
+<a href="cna.html" data-keep-group>Comprehensive Needs Analysis</a>
+<a href="kanban.html" data-keep-group aria-current="page">Kanban</a>
+</nav></div></header>
+<div class="group-bar" id="groupBar"></div>
+
+<main class="kb">
+<div class="intro">
+<h1>Project Kanban</h1>
+<p>Plan and track your team's internship tasks. Only your team sees this board. Every task gets the date it was set and a mandatory deadline. A deadline can be postponed once; the board keeps a visible record of the change.</p>
+</div>
+
+<details class="card legend" open>
+<summary>Colour coding</summary>
+<div class="legend-grid">
+<div class="legend-item" style="--c:var(--c-expedite)"><b>Expedite</b><span>Urgent and critical for the client. Pulled ahead of all other work; keep no more than one at a time.</span></div>
+<div class="legend-item" style="--c:var(--c-fixed)"><b>Fixed date</b><span>Hard external deadline: a client meeting, a Moodle submission, a pilot session.</span></div>
+<div class="legend-item" style="--c:var(--c-standard)"><b>Standard</b><span>Regular project work with an agreed target date.</span></div>
+<div class="legend-item" style="--c:var(--c-intangible)"><b>Intangible</b><span>Important but not urgent: background reading, improving templates, preparing materials in advance.</span></div>
+</div>
+<div class="status-legend">
+<span>Deadline status:</span>
+<span class="badge bs-ok">On track</span>
+<span class="badge bs-soon">Due soon (2 days or less)</span>
+<span class="badge bs-over">Overdue</span>
+<span class="badge bs-post">Deadline postponed</span>
+<span class="badge bs-block">Blocked</span>
+<span class="badge bs-done">Done on time</span>
+<span class="badge bs-late">Done late</span>
+</div>
+</details>
+
+<section class="card">
+<h2>Add a task</h2>
+<form class="add-form" id="addForm" novalidate>
+<label class="wide"><span class="field-label">Task</span><input type="text" id="fText" maxlength="500" placeholder="e.g. Send interview questions to the client for approval"></label>
+<label><span class="field-label">Class of service</span>
+<select id="fClass">
+<option value="standard">Standard</option>
+<option value="fixed">Fixed date</option>
+<option value="expedite">Expedite</option>
+<option value="intangible">Intangible</option>
+</select></label>
+<label><span class="field-label">Task type</span><select id="fType"></select></label>
+<label><span class="field-label">Deadline (required)</span><input type="date" id="fDue" required></label>
+<label><span class="field-label">Assignees</span><input type="text" id="fWho" list="memberList" placeholder="Comma separated"></label>
+<button class="btn" type="submit">Add task</button>
+</form>
+<datalist id="memberList"></datalist>
+<div class="form-msg" id="formMsg" role="alert"></div>
+</section>
+
+<section class="card">
+<h2>Team workload</h2>
+<div class="member-load" id="memberLoad"><span>No assignees yet</span></div>
+</section>
+
+<div class="filter-row" id="typeFilter" aria-label="Filter by task type"></div>
+<div class="board">
+<div class="column" data-col="backlog"><div class="column-head"><h3>Backlog</h3><span class="count" id="count-backlog">0</span></div><div class="list" id="list-backlog"></div></div>
+<div class="column" data-col="progress"><div class="column-head"><h3>In Progress</h3><span class="count" id="count-progress">0</span></div><div class="list" id="list-progress"></div></div>
+<div class="column" data-col="review"><div class="column-head"><h3>Review / Approval</h3><span class="count" id="count-review">0</span></div><div class="list" id="list-review"></div></div>
+<div class="column" data-col="done"><div class="column-head"><h3>Done</h3><span class="count" id="count-done">0</span></div><div class="list" id="list-done"></div></div>
+</div>
+<p class="footnote">Assign each task to one or more group members. Move a task to <b>Review / Approval</b> when it waits for feedback or approval from the client or the teacher, and to <b>Done</b> when it is approved. Add a link to the result: a document, survey, report or other evidence of completion.</p>
+</main>
+
+<script>
+/* Shown only when a page is opened directly from disk, where sign-in and live data cannot work */
+if (location.protocol === "file:") document.addEventListener("DOMContentLoaded", function () {
+  var d = document.createElement("div");
+  d.className = "file-warning";
+  d.innerHTML = "<b>This page is opened as a file from the computer.</b> Sign-in, answer fields and live data work only on the published website, or in Visual Studio Code via <b>Go Live</b> (Live Server extension).";
+  document.body.insertBefore(d, document.body.firstChild);
+});
+</script>
+<script type="module" src="assets/kanban.js"></script>
+</body>
+</html>
