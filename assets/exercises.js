@@ -1,5 +1,5 @@
 // Interactive exercises and self-assessment for the Working with Experts page.
-// Hosts: <div class="ex" data-exercise="bias|questions|jargon|sjt|formats|calib"></div>
+// Hosts: <div class="ex" data-exercise="bias|questions|sjt|formats|calib"></div>
 // Results are saved per student under results/<uid> (first attempt only) and calib/<uid>;
 // the teacher sees a summary by group in the Teacher panel. Exported data is reused there.
 
@@ -98,37 +98,6 @@ export const SETS = {
         why: "It asks for critical errors through a concrete action of the expert. The answer goes straight into your assessment criteria.",
         fix: "No change needed. You can add “And which mistakes would you let pass?”" }
     ]
-  },
-
-  jargon: {
-    title: "Jargon translation",
-    mode: "choice",
-    items: [
-      { term: "Formative assessment", choices: [
-        { t: "Assessment for learning that is carried out during the course and integrated into the instructional process.", ok: false, why: "Accurate, but it explains one term with others. The expert still does not see what will actually happen." },
-        { t: "Regular tests during the course, so that every learner gets a grade for each unit we report to the client.", ok: false, why: "Plain and convincing, but the purpose has changed. This describes grading and reporting. Formative checks exist to decide what to practise next." },
-        { t: "Short checks during the course that show us and the learner what needs more practice next.", ok: true, why: "Plain language that keeps the function. The expert can immediately suggest what to check." }] },
-      { term: "Scaffolding", choices: [
-        { t: "Making tasks easier for learners at the start, so that nobody feels lost or fails the first assignments.", ok: false, why: "It sounds like lowering the standard, which may alarm the expert. Support is temporary and the standard stays the same." },
-        { t: "Temporary support, such as hints, examples or templates, that we remove step by step as learners grow.", ok: true, why: "Concrete and accurate. It also invites the expert to provide examples and templates." },
-        { t: "Structured instructional support provided within the learner’s zone of proximal development and gradually faded.", ok: false, why: "Correct for colleagues, but it is exactly the jargon the expert cannot use." }] },
-      { term: "Learning outcome", choices: [
-        { t: "A measurable objective formulated with action verbs according to the levels of Bloom’s taxonomy.", ok: false, why: "True, but it puts the expert in the role of a student of pedagogy." },
-        { t: "What a learner will be able to do after the course, and how we will see that they can.", ok: true, why: "It directs the expert to actions and evidence, which is exactly what you need from the interview." },
-        { t: "The list of topics and key information that learners will study and remember by the end of the course.", ok: false, why: "This describes content, not a result. The expert will answer with a list of topics." }] },
-      { term: "Microlearning", choices: [
-        { t: "Short units of five to ten minutes, each built around one practical task learners can do between meetings.", ok: true, why: "It explains the length, the focus and the reason, so the expert can help choose the tasks." },
-        { t: "Your lectures recorded in short parts of five to ten minutes, so learners can watch them on their phones.", ok: false, why: "Very clear for the expert, and that is the danger. It suggests cutting a lecture into pieces. The idea of one practical task per unit is lost." },
-        { t: "Content chunked into granular learning objects for just-in-time delivery on mobile devices at the point of need.", ok: false, why: "Several new terms instead of one." }] },
-      { term: "Blended format", choices: [
-        { t: "A hybrid combination of synchronous and asynchronous modalities within one integrated learning experience.", ok: false, why: "Jargon. Even many teachers would ask what it means." },
-        { t: "Learners study the materials online on their own, and from time to time we meet to answer their questions.", ok: false, why: "Plain and friendly, but the face-to-face part becomes an optional question session. In a blended course each part has a planned job." },
-        { t: "Part of the course is online and part is face-to-face, and each part has its own job in the plan.", ok: true, why: "It shows the logic of the format, so the expert can say which content needs live contact." }] },
-      { term: "Rubric", choices: [
-        { t: "A checklist of the elements that must be present in the learner’s work for the task to be accepted.", ok: false, why: "A checklist says whether something is present, not how good it is. The levels of quality are lost." },
-        { t: "A list of criteria describing strong, acceptable and weak performance, which we would like to write with you.", ok: true, why: "Clear, and it turns the expert into a co-author of the criteria, which is their real strength." },
-        { t: "The marking criteria and band descriptors that examiners use to score written and spoken performance.", ok: false, why: "Acceptable with an examiner, who uses these terms every day. With an engineer or a lawyer, it says little. Always ask yourself who the expert is." }] }
-    ]
   }
 };
 
@@ -210,7 +179,7 @@ export const GOALS = [
 ];
 
 /* =============================== calibration =============================== */
-export const CALIB = ["RACI matrix", "Power and interest grid", "Mediation (CEFR)", "SCORM package",
+export const CALIB = ["Spaced repetition", "Learning analytics", "Mediation (CEFR)", "SCORM package",
   "Scaffolding", "Formative assessment", "Cognitive load", "Learning outcome"];
 const CAN = ["Yes", "Not sure", "No"];
 const PCT = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

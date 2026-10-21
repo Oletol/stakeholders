@@ -61,7 +61,10 @@ const TASKS = {
       S("Question type or technique", TECHNIQUES), T("What you want to learn"), S("Priority", ["Must ask", "Ask if time allows"])] }] },
 
   t5: { c: "2", title: "Task 5 – Jargon translation list", parts: [
-    { key: "rows", type: "rows", min: 5, cols: [T("Our professional term"), T("Plain language for the expert")] }] },
+    { key: "given", type: "fixed", title: "A. Common terms", cols: ["Term", "Your explanation for the expert"],
+      rows: ["Formative assessment", "Scaffolding", "Learning outcome", "Microlearning", "Blended format", "Rubric",
+        "Learning path", "Asynchronous task"] },
+    { key: "rows", type: "rows", min: 3, title: "B. Terms from your own project", cols: [T("Our professional term"), T("Plain language for the expert")] }] },
 
   t7: { c: "3", title: "Task 6 – Follow-up summary and action plan", parts: [
     { key: "f", type: "fields", fields: [

@@ -156,7 +156,7 @@ if (!G.isAdmin) {
       const sjtN = ids.filter(id => results[id].sjt).length;
       const fmtN = ids.filter(id => results[id].formats).length;
       const calN = Object.keys(calib).filter(uid => groupOf(uid) === "g" + g).length;
-      return `<tr><td><b>Group ${g}</b></td><td>${memberList(members["g" + g]).length || 0}</td><td>${cell("bias")}</td><td>${cell("questions")}</td><td>${cell("jargon")}</td><td>${sjtN || "–"}</td><td>${fmtN || "–"}</td><td>${calN || "–"}</td></tr>`;
+      return `<tr><td><b>Group ${g}</b></td><td>${memberList(members["g" + g]).length || 0}</td><td>${cell("bias")}</td><td>${cell("questions")}</td><td>${sjtN || "–"}</td><td>${fmtN || "–"}</td><td>${calN || "–"}</td></tr>`;
     }).join("");
 
     // situational profile by group: share of picks per bias out of times offered
@@ -177,7 +177,7 @@ if (!G.isAdmin) {
       const answers = Object.values(results).map(r => r[key]?.[k]).filter(Boolean);
       return { label: it.text || it.term, n: answers.length, ok: answers.filter(a => a.ok).length };
     }).filter(x => x.n).sort((a, b) => a.ok / a.n - b.ok / b.n).slice(0, 4);
-    const hard = ["bias", "questions", "jargon"].map(key => {
+    const hard = ["bias", "questions"].map(key => {
       const st = itemStats(key);
       return st.length ? `<h3>${SETS[key].title}</h3><ul class="hard">${st.map(x => `<li><b>${pct(x.ok, x.n)}</b> correct (${x.n}) · ${esc(x.label.length > 140 ? x.label.slice(0, 140) + "…" : x.label)}</li>`).join("")}</ul>` : "";
     }).join("");
@@ -195,7 +195,7 @@ if (!G.isAdmin) {
     }).join("");
 
     box.innerHTML = `
-      <div class="scroll"><table><thead><tr><th>Team</th><th>Members</th><th>Bias identification</th><th>Interview questions</th><th>Jargon translation</th><th>Situational test</th><th>Formats</th><th>Estimates</th></tr></thead><tbody>${rowsByGroup}</tbody></table></div>
+      <div class="scroll"><table><thead><tr><th>Team</th><th>Members</th><th>Bias identification</th><th>Interview questions</th><th>Situational test</th><th>Formats</th><th>Estimates</th></tr></thead><tbody>${rowsByGroup}</tbody></table></div>
       <p class="muted">Percentages show correct first answers. The last three columns show how many students completed the activity.</p>
       <h3>Situational judgement by group</h3>
       <p class="muted">Average number of balanced decisions, and how often students chose the option linked with each bias (out of the times it was offered). Values of 34% and above are highlighted.</p>
