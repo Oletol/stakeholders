@@ -61,8 +61,17 @@ if (!G.isAdmin) {
     const list = Object.entries(users).filter(([uid]) => !admins[uid]).sort((a, b) =>
       (a[1].group ? 1 : 0) - (b[1].group ? 1 : 0) || String(a[1].name || "").localeCompare(String(b[1].name || "")));
     if (!list.length) { studentRows.innerHTML = `<tr><td colspan="5" class="muted">No students have registered yet.</td></tr>`; return; }
+    // possible duplicates: same address before @ (any misis.ru domain) or the same name
+    const norm = v => String(v || "").trim().toLowerCase().replace(/\s+/g, " ");
+    const count = {};
+    list.forEach(([, u]) => {
+      [`e:${norm(u.email).split("@")[0]}`, `n:${norm(u.name)}`].forEach(k => { if (k.length > 2) count[k] = (count[k] || 0) + 1; });
+    });
+    const dup = u => count[`e:${norm(u.email).split("@")[0]}`] > 1 ? "Same address registered twice"
+      : count[`n:${norm(u.name)}`] > 1 ? "Same name registered twice" : "";
     studentRows.innerHTML = list.map(([uid, u]) => {
-      const st = !u.joinCode ? `<span class="tag bad">No course code</span>` : !u.group ? `<span class="tag warn">Waiting for team</span>` : "Active";
+      const st = (dup(u) ? `<span class="tag bad">${dup(u)}</span> ` : "") +
+        (!u.joinCode ? `<span class="tag bad">No course code</span>` : !u.group ? `<span class="tag warn">Waiting for team</span>` : "Active");
       const opts = [`<option value="">Choose a team…</option>`, ...GROUPS.map(g =>
         `<option value="g${g}"${u.group === "g" + g ? " selected" : ""}>Group ${g}${groups["g" + g]?.company ? " – " + esc(groups["g" + g].company) : ""}</option>`)].join("");
       return `<tr><td>${esc(u.name || "")}</td><td>${esc(u.email || "")}</td><td>${esc(formatDate(u.createdAt))}</td><td>${st}</td>

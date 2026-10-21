@@ -5,6 +5,25 @@ import { connect, authMessage, todayISO } from "./db.js";
 export const GROUPS = ["1", "2", "3", "4", "5"];
 // university addresses only: name@misis.ru and subdomains such as name@edu.misis.ru
 const MISIS_EMAIL = /@([a-z0-9-]+\.)*misis\.ru$/i;
+
+// One account per person: the part of the address before @ is reserved for the first account,
+// so ivanov@misis.ru and IVANOV@edu.misis.ru cannot both register. Dots become commas (database keys).
+const emailKey = email => {
+  const local = String(email || "").toLowerCase().split("@")[0].replace(/\./g, ",");
+  return local && !/[$#\[\]\/]/.test(local) ? local : null;
+};
+async function claimEmail(db, user) {
+  const key = emailKey(user.email);
+  if (!key) return;
+  let owner = null;
+  try { owner = await db.get(`emailIndex/${key}`); } catch (e) { /* rules not published yet */ return; }
+  if (owner && owner !== user.uid) {
+    const e = new Error("duplicate email");
+    e.userMessage = "An account for this university address already exists, possibly with a different spelling or domain. Sign out and sign in with your existing account, or use Forgot password.";
+    throw e;
+  }
+  if (!owner) await db.set(`emailIndex/${key}`, user.uid);
+}
 const STORE_KEY = "stakeholdersAdminGroup";
 
 export function esc(s) {
@@ -205,6 +224,7 @@ function runGate(db, resolve) {
   });
 
   async function registerUser(user, name, code) {
+    await claimEmail(db, user);
     await db.update(`users/${user.uid}`, { name, email: user.email, createdAt: todayISO() });
     try { await db.set(`users/${user.uid}/joinCode`, code); }
     catch (err) {
@@ -231,6 +251,8 @@ function runGate(db, resolve) {
       }
     }
     if (!isAdmin && !rec.group) return views.waiting(user, rec);
+    // older accounts: reserve the address if this was not done at registration
+    if (!isAdmin && rec.joinCode) claimEmail(db, user).catch(() => {});
     // self-heal: make sure the member entry exists
     if (!isAdmin && rec.group) {
       const m = await db.get(`members/${rec.group}/${user.uid}`);

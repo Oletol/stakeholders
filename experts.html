@@ -52,6 +52,27 @@ details{margin-top:14px;border:1px solid var(--line);border-radius:14px;backgrou
 details + details{margin-top:8px}
 .canvas-box p{margin:0 0 8px}
 .canvas-box ul{margin:0}
+details.bank > summary{font-size:1.02rem}
+.ex{display:grid;gap:10px;margin-top:14px}
+.ex-item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px;border:1px solid #e5eaf1;border-radius:12px;background:#f9fbfd}
+.ex-num{width:30px;height:30px;border-radius:9px;background:#e3ebf5;color:var(--navy);font-weight:850;display:grid;place-items:center;font-size:.86rem}
+.ex-text{margin:0 0 10px}.ex-term{margin:2px 0 10px;font-weight:850;color:var(--navy)}
+.ex-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ex-row select{flex:1 1 220px;min-width:0;width:100%;max-width:440px;font:inherit;font-size:.92rem;padding:8px 10px;border:1px solid #c9d5e4;border-radius:9px;background:#fff}
+.ex-row .ws-btn,.ex-body > .ws-btn{margin-top:0}
+.ex-choices{display:grid;gap:8px;margin-bottom:10px}
+.ex-choice{display:grid;grid-template-columns:20px 1fr;gap:4px 10px;align-items:start;padding:10px 12px;border:1px solid #dfe6ef;border-radius:10px;background:#fff;cursor:pointer}
+.ex-choice input{margin-top:5px}
+.ex-choice.is-best{border-color:#9cc9b7;background:#eef7f3}
+.ex-choice.is-wrong{border-color:#e6bcc4;background:#fbf1f3}
+.ex-why{grid-column:2;font-size:.85rem;color:#4b5b72}
+.ex-feedback{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.92rem}
+.ex-feedback.ok{background:#eef7f3;border:1px solid #cfe6dc;color:#24584a}
+.ex-feedback.no{background:#fbf1f3;border:1px solid #efd5da;color:#6f3540}
+.ex-fix{margin-top:8px;color:#1f2937}.ex-fix span{display:block;font-size:.72rem;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#465873;margin-bottom:2px}
+.ex-score{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:12px;background:#eef3f9;color:#29405f;font-size:.92rem}
+.ex-score .ws-btn{margin-top:0}
+@media(max-width:600px){.ex-item{grid-template-columns:minmax(0,1fr)}.ex-num{display:none}}
 </style>
 <link rel="stylesheet" href="assets/site.css">
 </head>
@@ -110,7 +131,7 @@ details + details{margin-top:8px}
 <article class="card full">
 <div class="tag"><span class="dot"></span>Theory</div>
 <h3>Who the subject matter expert is</h3>
-<p>A subject matter expert (SME) is a person with deep, practice-based knowledge of the field your course is about. For an ESL product this may be a domain professional (an engineer, a lawyer, a doctor whose English the course must support), an experienced examiner, a senior teacher, or a manager who knows the real tasks of employees. The SME is your source of content and your quality check. The SME is not your co-designer.</p>
+<p>A subject matter expert (SME) is a person with deep, practice-based knowledge of the field your course is about. The SME is your source of content and quality check. The SME is not a co-designer.</p>
 <div class="canvas">
 <div class="canvas-box"><strong>What the expert is good at</strong>
 <ul>
@@ -123,11 +144,11 @@ details + details{margin-top:8px}
 </ul></div>
 <div class="canvas-box"><strong>What is not the expert’s job</strong>
 <ul>
-<li>Does not know how to teach, especially adults.</li>
-<li>Does not speak “our” instructional design language and needs a translator.</li>
-<li>Might struggle to distinguish a beginner from an advanced learner.</li>
+<li>Does not know how to teach, especially in a digital environment.</li>
+<li>Does not speak the instructional design language and needs a translator.</li>
+<li>Distinguishes learners mainly by their level of preparation and may overlook the other needs we study in the CNA: goals, motivation, working conditions, digital practices, barriers.</li>
 <li>Knows little about delivery formats, learning methods or course organisation.</li>
-<li>Knows little about learning experience design and pedagogy.</li>
+<li>May know pedagogy and teaching methodology well, but rarely knows how teaching and learning work in a digital environment.</li>
 <li>Is not supposed to write course texts, create slides or run webinars.</li>
 </ul></div>
 </div>
@@ -167,11 +188,21 @@ details + details{margin-top:8px}
 <tbody>
 <tr><td><b>Curse of knowledge</b></td><td>Once you know something, it is hard to imagine not knowing it (Camerer et al., 1989). The expert skips steps and underestimates difficulty.</td><td>“It’s obvious, you just write the summary.”</td><td>Ask for step-by-step walkthroughs of real cases. Use “Playing the Newcomer”.</td></tr>
 <tr><td><b>Illusion of others’ competence</b></td><td>Experts systematically overestimate what novices already know and how fast they learn (Hinds, 1999).</td><td>“Everybody at this level knows the basics.”</td><td>Bring CNA evidence: the learner profile and questionnaire results. Ask what a learner must be able to do before the course.</td></tr>
+<tr><td><b>Underestimation of learners</b></td><td>The mirror image of the previous bias. The expert believes the subject is too difficult for learners, so explains every detail at length or simplifies until the content becomes inaccurate.</td><td>“They will never understand this without the full theory first.” “Just give them a list of phrases, the rest is too complicated.”</td><td>Check difficulty against CNA data: CEFR level, prior experience. Pilot one authentic task with real learners and show the expert the result. Agree which simplifications are acceptable and which distort meaning.</td></tr>
 <tr><td><b>Focus on exceptions</b></td><td>Rare, dramatic cases are the most memorable, so they crowd out typical everyday tasks.</td><td>“Let me tell you about the candidate who…”</td><td>Ask about frequency: “How often does this happen?” Separate typical tasks from exceptions in the content matrix.</td></tr>
 <tr><td><b>Redundancy effect</b></td><td>The expert wants to add more and more. In cognitive load theory, extra information that learners do not need reduces learning (Chandler &amp; Sweller, 1991).</td><td>“We must also include the full history of the standard.”</td><td>Use the priority column: core, practice later, reference only. Move detail into supplementary materials.</td></tr>
 <tr><td><b>Status quo and resistance to change</b></td><td>People prefer the current state of affairs even when an alternative is better (Samuelson &amp; Zeckhauser, 1988).</td><td>“We have always taught it with lectures, and it works.”</td><td>Offer alternatives through prototypes, case studies or comparable examples rather than argument.</td></tr>
+<tr><td><b>Law of the instrument</b></td><td>A method that has worked for years is applied everywhere, even where it does not fit. “If all you have is a hammer, everything looks like a nail” (Kaplan, 1964; Maslow, 1966). Unlike the status quo bias, the expert may welcome a new course but fills it with the same familiar tool.</td><td>“Translation and a vocabulary test, that is how I prepare all my students.” “Let’s make every module a webinar.”</td><td>Start from the target action and ask which method fits that action. Show a comparable example where a different method gives a better result.</td></tr>
 <tr><td><b>Authorship effect</b></td><td>People value what they have created themselves more highly (the IKEA effect; Norton et al., 2012). Editing feels like loss.</td><td>“You cannot shorten my text, every sentence matters.”</td><td>Reassure the expert that meaning is kept. Show the chain goal – format – result. Offer reference materials as a home for the full text.</td></tr>
+<tr><td><b>Effort justification</b></td><td>People value what cost them a lot of effort (Aronson &amp; Mills, 1959). The expert believes learners must go through the same long and difficult path. Related to the authorship effect, but it concerns the path, not the text.</td><td>“I learned it the hard way, from the original sources. They should do the same, otherwise nothing will stick.”</td><td>Separate the goal from the path. Agree on the result first, then show a shorter route to it. Offer the difficult path as optional enrichment.</td></tr>
 </tbody></table></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Interactive test</div>
+<h3>Bias detective</h3>
+<p>Each situation shows one expert bias. Read the signs carefully, choose the bias and check your answer. Some situations look alike on purpose. Pay attention to what exactly the expert defends: a text, a method, a path, a format or an opinion about learners.</p>
+<div class="ex" data-exercise="bias"></div>
 </article>
 
 <article class="card practice half">
@@ -216,7 +247,7 @@ details + details{margin-top:8px}
 <div class="export-bar"><button type="button" class="export-btn" data-export="2">Export Stage 2 as PDF</button><span class="export-note">Includes your group profile and all answers in this stage.</span></div>
 
 <div class="grid">
-<article class="card theory">
+<article class="card full">
 <div class="tag"><span class="dot"></span>Theory</div>
 <h3>Structure of an interview with an expert</h3>
 <ol>
@@ -232,10 +263,13 @@ details + details{margin-top:8px}
 <div class="callout"><strong>Two experts are better than one.</strong> If your client can offer a second expert, ask both the key questions. Where they agree, you have core content. Where they disagree, you have found an exception or a matter of personal style.</div>
 </article>
 
-<article class="card practice">
+<article class="card full">
 <div class="tag"><span class="dot"></span>Question bank</div>
-<h3>Sample questions for each purpose</h3>
-<details open>
+<details class="bank">
+<summary>Sample questions for each purpose</summary>
+<div class="details-body">
+<p class="ws-hint">Open the bank when you write your own interview guide in Task 4. Try the exercise below first.</p>
+<details>
 <summary>1 Open-ended questions to start the conversation</summary>
 <div class="details-body"><p class="ws-hint">Help the expert warm up and reveal context.</p><ul>
 <li>What is considered most important in your subject?</li>
@@ -297,6 +331,8 @@ details + details{margin-top:8px}
 <li>What kinds of mistakes are absolutely unacceptable?</li>
 </ul></div>
 </details>
+</div>
+</details>
 </article>
 
 <article class="card full">
@@ -319,13 +355,10 @@ details + details{margin-top:8px}
 </article>
 
 <article class="card full">
-<div class="tag"><span class="dot"></span>Examples – weak and better questions</div>
-<div class="prompt-list">
-<div class="qpair"><div><span class="err-type">Too broad</span><div class="weak"><strong>Weak:</strong> Could you tell us everything about technical meetings in English?</div></div><div class="better"><strong>Better:</strong> Think of the last meeting where a junior engineer struggled in English. What exactly happened?</div></div>
-<div class="qpair"><div><span class="err-type">Knowledge, not action</span><div class="weak"><strong>Weak:</strong> What should learners know about formal letters?</div></div><div class="better"><strong>Better:</strong> What must a learner be able to write after the course, and how will you see that the letter is good enough?</div></div>
-<div class="qpair"><div><span class="err-type">Designer jargon</span><div class="weak"><strong>Weak:</strong> Which learning outcomes should we align with the formative assessment?</div></div><div class="better"><strong>Better:</strong> How do you usually check during the course that a student is on the right track?</div></div>
-<div class="qpair"><div><span class="err-type">Yes or no question</span><div class="weak"><strong>Weak:</strong> Is grammar important for this exam?</div></div><div class="better"><strong>Better:</strong> Which grammar mistakes lower the score, and which ones examiners usually tolerate?</div></div>
-</div>
+<div class="tag"><span class="dot"></span>In class exercise</div>
+<h3>What is wrong with this question?</h3>
+<p>Below are questions that students prepared for interviews with experts. Some of them will not give you useful data, and some work well. In pairs, decide what the problem is and how you would rephrase the question. Then choose the problem and check. Compare your version with the suggested one: is yours better?</p>
+<div class="ex" data-exercise="questions"></div>
 </article>
 
 <article class="card full">
@@ -347,9 +380,14 @@ details + details{margin-top:8px}
 <article class="card full">
 <div class="tag"><span class="dot"></span>In class task</div>
 <h3>Task 5 – Translate your jargon</h3>
-<p>The expert does not speak the language of instructional design. List the professional terms you are likely to use with the expert and translate them into the language of usefulness.</p>
+<p>The expert does not speak the language of instructional design. A good translation is plain, accurate and useful: the expert understands it, it does not change the meaning, and it helps the expert see what you need from them.</p>
+<h4>Step 1 – Compare translations</h4>
+<p>For each term, three explanations are offered. All of them sound reasonable. Discuss in your team which one you would use with your expert and why the other two are weaker. Then check.</p>
+<div class="ex" data-exercise="jargon"></div>
+<h4>Step 2 – Translate your own terms</h4>
+<p>List the professional terms you are likely to use with your real expert and write your plain-language versions. Think about who your expert is: a term that an examiner uses every day may mean nothing to an engineer.</p>
 <div class="chips">
-<span class="chip">Learning outcome</span><span class="chip">Formative assessment</span><span class="chip">Scaffolding</span><span class="chip">Microlearning</span><span class="chip">LMS</span><span class="chip">Blended format</span><span class="chip">Rubric</span><span class="chip">CEFR descriptor</span>
+<span class="chip">LMS</span><span class="chip">CEFR descriptor</span><span class="chip">Learning path</span><span class="chip">Pilot</span><span class="chip">Asynchronous task</span><span class="chip">Feedback loop</span>
 </div>
 <div class="ws" data-task="t5"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
 </article>
@@ -587,12 +625,15 @@ details + details{margin-top:8px}
 <details>
 <summary>References</summary>
 <div class="details-body"><ul>
+<li>Aronson, E., &amp; Mills, J. (1959). The effect of severity of initiation on liking for a group. <i>Journal of Abnormal and Social Psychology, 59</i>(2), 177–181.</li>
 <li>Camerer, C., Loewenstein, G., &amp; Weber, M. (1989). The curse of knowledge in economic settings: An experimental analysis. <i>Journal of Political Economy, 97</i>(5), 1232–1254.</li>
 <li>Chandler, P., &amp; Sweller, J. (1991). Cognitive load theory and the format of instruction. <i>Cognition and Instruction, 8</i>(4), 293–332.</li>
 <li>Clark, R. E., Feldon, D. F., van Merriënboer, J. J. G., Yates, K. A., &amp; Early, S. (2008). Cognitive task analysis. In J. M. Spector et al. (Eds.), <i>Handbook of research on educational communications and technology</i> (3rd ed., pp. 577–593). Routledge.</li>
 <li>Feldon, D. F., &amp; Clark, R. E. (2006). Instructional implications of cognitive task analysis as a method for improving the accuracy of experts’ self-report. In G. Clarebout &amp; J. Elen (Eds.), <i>Avoiding simplicity, confronting complexity</i> (pp. 109–116). Sense Publishers.</li>
 <li>Flanagan, J. C. (1954). The critical incident technique. <i>Psychological Bulletin, 51</i>(4), 327–358.</li>
 <li>Hinds, P. J. (1999). The curse of expertise: The effects of expertise and debiasing methods on predictions of novice performance. <i>Journal of Experimental Psychology: Applied, 5</i>(2), 205–221.</li>
+<li>Kaplan, A. (1964). <i>The conduct of inquiry: Methodology for behavioral science</i>. Chandler.</li>
+<li>Maslow, A. H. (1966). <i>The psychology of science: A reconnaissance</i>. Harper &amp; Row.</li>
 <li>Moore, C. (2017). <i>Map it: The hands-on guide to strategic training design</i>. Montesa Press.</li>
 <li>Norton, M. I., Mochon, D., &amp; Ariely, D. (2012). The IKEA effect: When labor leads to love. <i>Journal of Consumer Psychology, 22</i>(3), 453–460.</li>
 <li>Polanyi, M. (1966). <i>The tacit dimension</i>. Doubleday.</li>
@@ -616,6 +657,7 @@ if (location.protocol === "file:") document.addEventListener("DOMContentLoaded",
   document.body.insertBefore(d, document.body.firstChild);
 });
 </script>
+<script src="assets/exercises.js"></script>
 <script type="module" src="assets/experts.js"></script>
 </body>
 </html>

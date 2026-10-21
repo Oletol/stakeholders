@@ -10,8 +10,9 @@ const COMPONENTS = {
   "5": "Stage 5 – Handle difficult situations"
 };
 
-const BIASES = ["Curse of knowledge", "Illusion of others' competence", "Focus on exceptions",
-  "Redundancy effect", "Status quo and resistance to change", "Authorship effect"];
+const BIASES = ["Curse of knowledge", "Illusion of others' competence", "Underestimation of learners",
+  "Focus on exceptions", "Redundancy effect", "Status quo and resistance to change", "Law of the instrument",
+  "Authorship effect", "Effort justification"];
 const PARTS = ["Introduction", "Tasks", "Process", "Mistakes", "Assessment", "Examples", "Closing"];
 const TECHNIQUES = ["Open question", "Action question", "Clarifying question", "Diagnostic question",
   "Case and example question", "Essentials filter question", "Assessment criteria question",
