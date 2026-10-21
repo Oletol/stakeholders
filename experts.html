@@ -53,7 +53,7 @@ details + details{margin-top:8px}
 .canvas-box p{margin:0 0 8px}
 .canvas-box ul{margin:0}
 details.bank > summary{font-size:1.02rem}
-.ex{display:grid;gap:10px;margin-top:14px}
+.ex{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:14px}
 .ex-item{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;padding:14px;border:1px solid #e5eaf1;border-radius:12px;background:#f9fbfd}
 .ex-num{width:30px;height:30px;border-radius:9px;background:#e3ebf5;color:var(--navy);font-weight:850;display:grid;place-items:center;font-size:.86rem}
 .ex-text{margin:0 0 10px}.ex-term{margin:2px 0 10px;font-weight:850;color:var(--navy)}
@@ -72,6 +72,19 @@ details.bank > summary{font-size:1.02rem}
 .ex-fix{margin-top:8px;color:#1f2937}.ex-fix span{display:block;font-size:.72rem;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#465873;margin-bottom:2px}
 .ex-score{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:12px;background:#eef3f9;color:#29405f;font-size:.92rem}
 .ex-score .ws-btn{margin-top:0}
+.self-no{font-size:.86rem}
+.sj-profile{margin-top:14px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.sj-bar{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr) 64px;gap:10px;align-items:center;margin:6px 0;font-size:.9rem}
+.sj-track{height:10px;border-radius:6px;background:#eef3f9;overflow:hidden}.sj-track span{display:block;height:100%;background:#8d4550;border-radius:6px}
+.sj-n{color:#667085;font-size:.84rem;text-align:right}
+.sj-key ul{margin:4px 0 12px}.sj-key li.mine{font-weight:700}.sj-q{margin:12px 0 4px}
+.sj-tag{display:inline-block;font-size:.7rem;font-weight:850;text-transform:uppercase;letter-spacing:.04em;color:#8d4550;background:#fbeff1;border:1px solid #f0d6db;border-radius:6px;padding:1px 6px;margin-left:4px}
+.sj-tag.ok{color:#2f6f5e;background:#eef7f3;border-color:#cfe6dc}
+.cal-table select{font:inherit;font-size:.9rem;padding:6px 8px;border:1px solid #c9d5e4;border-radius:8px;background:#fff}
+.teacher-note{margin-top:14px;padding:14px 16px;border-radius:12px;background:#fff8e8;border:1px solid #f0dcae;color:#4a3a12;font-size:.92rem}
+.teacher-note > b{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#8a6414;margin-bottom:6px}
+.teacher-note p{margin:0 0 6px}.teacher-note ul{margin:4px 0 6px}
+@media(max-width:600px){.sj-bar{grid-template-columns:1fr 54px}.sj-label{grid-column:1/-1}}
 @media(max-width:600px){.ex-item{grid-template-columns:minmax(0,1fr)}.ex-num{display:none}}
 </style>
 <link rel="stylesheet" href="assets/site.css">
@@ -90,6 +103,7 @@ details.bank > summary{font-size:1.02rem}
 <nav class="nav" id="topnav">
 <a href="#overview">Overview</a>
 <a href="#s1">1 Know your expert</a>
+<a href="#self">Self-check</a>
 <a href="#s2">2 Prepare the interview</a>
 <a href="#s3">3 Conduct the interview</a>
 <a href="#s4">4 Turn expertise into content</a>
@@ -108,15 +122,15 @@ details.bank > summary{font-size:1.02rem}
 <p>How an instructional designer turns an expert’s experience into a course that learners can actually use</p>
 </div>
 <div class="cna-steps">
-<a class="cna-step" href="#s1"><span class="comp">Stage 1</span><span class="focus">Know your expert: strengths, limits, typical biases and a clear division of roles</span><span class="out"><b>Output</b>Expert register, working agreement, bias forecast</span></a>
+<a class="cna-step" href="#s1"><span class="comp">Stage 1</span><span class="focus">Know your expert: strengths, limits, typical biases and a clear division of roles</span><span class="out"><b>Output</b>Expert register, working agreement, analysis of designer mistakes</span></a>
 <a class="cna-step" href="#s2"><span class="comp">Stage 2</span><span class="focus">Prepare the interview: structure, focused questions and plain language</span><span class="out"><b>Output</b>Interview guide, jargon translation list</span></a>
-<a class="cna-step" href="#s3"><span class="comp">Stage 3</span><span class="focus">Conduct the interview: rehearse in class, then interview the real expert</span><span class="out"><b>Output</b>Rehearsal log, follow-up summary and action plan</span></a>
-<a class="cna-step" href="#s4"><span class="comp">Stage 4</span><span class="focus">Turn expertise into learning content: actions, steps, mistakes and quality criteria</span><span class="out"><b>Output</b>Content matrix, action-based goals</span></a>
-<a class="cna-step" href="#s5"><span class="comp">Stage 5</span><span class="focus">Handle difficult situations and organise the expert review</span><span class="out"><b>Output</b>Response plan, review request</span></a>
+<a class="cna-step" href="#s3"><span class="comp">Stage 3</span><span class="focus">Conduct the interview with the real expert and confirm the results in writing</span><span class="out"><b>Output</b>Follow-up summary and action plan</span></a>
+<a class="cna-step" href="#s4"><span class="comp">Stage 4</span><span class="focus">Turn expertise into learning content: from what the expert says to what learners do</span><span class="out"><b>Output</b>Expert statements reformulated as learner actions</span></a>
+<a class="cna-step" href="#s5"><span class="comp">Stage 5</span><span class="focus">Handle difficult situations and organise the expert review</span><span class="out"><b>Output</b>Review request</span></a>
 </div>
 </div>
 
-<div class="callout"><strong>Why this matters for your portfolio.</strong> The CNA showed you what the client and the learners need. The expert knows what competent performance in the field looks like. Your job is to connect the two. The outputs of this page feed your Meeting Minutes, your Course Map and the expert review of your final product.</div>
+<div class="callout"><strong>Why this matters for your portfolio.</strong> The CNA showed you what the client and the learners need. The expert knows what competent performance in the field looks like. Your job is to connect the two. The outputs of this page feed your Meeting Minutes and, later, your Course Map and the expert review of your final product.</div>
 </section>
 
 <!-- ============================ STAGE 1 ============================ -->
@@ -144,11 +158,10 @@ details.bank > summary{font-size:1.02rem}
 </ul></div>
 <div class="canvas-box"><strong>What is not the expert’s job</strong>
 <ul>
-<li>Does not know how to teach, especially in a digital environment.</li>
-<li>Does not speak the instructional design language and needs a translator.</li>
+<li>Does not know how to teach in a digital environment.</li>
+<li>Does not speak the instructional design language.</li>
 <li>Distinguishes learners mainly by their level of preparation and may overlook the other needs we study in the CNA: goals, motivation, working conditions, digital practices, barriers.</li>
-<li>Knows little about delivery formats, learning methods or course organisation.</li>
-<li>May know pedagogy and teaching methodology well, but rarely knows how teaching and learning work in a digital environment.</li>
+<li>Knows little about digital delivery formats, learning methods and course organisation in a digital environment.</li>
 <li>Is not supposed to write course texts, create slides or run webinars.</li>
 </ul></div>
 </div>
@@ -184,56 +197,75 @@ details.bank > summary{font-size:1.02rem}
 <h3>Typical biases of subject matter experts</h3>
 <p>Every expert brings predictable thinking traps into a course project. Knowing them in advance turns “a difficult expert” into a manageable situation.</p>
 <div class="ws-scroll"><table>
-<thead><tr><th style="width:18%">Bias</th><th>What it is</th><th style="width:26%">What it sounds like</th><th style="width:28%">What the designer does</th></tr></thead>
+<thead><tr><th style="width:18%">Bias</th><th>What it is</th><th style="width:32%">What it sounds like</th></tr></thead>
 <tbody>
-<tr><td><b>Curse of knowledge</b></td><td>Once you know something, it is hard to imagine not knowing it (Camerer et al., 1989). The expert skips steps and underestimates difficulty.</td><td>“It’s obvious, you just write the summary.”</td><td>Ask for step-by-step walkthroughs of real cases. Use “Playing the Newcomer”.</td></tr>
-<tr><td><b>Illusion of others’ competence</b></td><td>Experts systematically overestimate what novices already know and how fast they learn (Hinds, 1999).</td><td>“Everybody at this level knows the basics.”</td><td>Bring CNA evidence: the learner profile and questionnaire results. Ask what a learner must be able to do before the course.</td></tr>
-<tr><td><b>Underestimation of learners</b></td><td>The mirror image of the previous bias. The expert believes the subject is too difficult for learners, so explains every detail at length or simplifies until the content becomes inaccurate.</td><td>“They will never understand this without the full theory first.” “Just give them a list of phrases, the rest is too complicated.”</td><td>Check difficulty against CNA data: CEFR level, prior experience. Pilot one authentic task with real learners and show the expert the result. Agree which simplifications are acceptable and which distort meaning.</td></tr>
-<tr><td><b>Focus on exceptions</b></td><td>Rare, dramatic cases are the most memorable, so they crowd out typical everyday tasks.</td><td>“Let me tell you about the candidate who…”</td><td>Ask about frequency: “How often does this happen?” Separate typical tasks from exceptions in the content matrix.</td></tr>
-<tr><td><b>Redundancy effect</b></td><td>The expert wants to add more and more. In cognitive load theory, extra information that learners do not need reduces learning (Chandler &amp; Sweller, 1991).</td><td>“We must also include the full history of the standard.”</td><td>Use the priority column: core, practice later, reference only. Move detail into supplementary materials.</td></tr>
-<tr><td><b>Status quo and resistance to change</b></td><td>People prefer the current state of affairs even when an alternative is better (Samuelson &amp; Zeckhauser, 1988).</td><td>“We have always taught it with lectures, and it works.”</td><td>Offer alternatives through prototypes, case studies or comparable examples rather than argument.</td></tr>
-<tr><td><b>Law of the instrument</b></td><td>A method that has worked for years is applied everywhere, even where it does not fit. “If all you have is a hammer, everything looks like a nail” (Kaplan, 1964; Maslow, 1966). Unlike the status quo bias, the expert may welcome a new course but fills it with the same familiar tool.</td><td>“Translation and a vocabulary test, that is how I prepare all my students.” “Let’s make every module a webinar.”</td><td>Start from the target action and ask which method fits that action. Show a comparable example where a different method gives a better result.</td></tr>
-<tr><td><b>Authorship effect</b></td><td>People value what they have created themselves more highly (the IKEA effect; Norton et al., 2012). Editing feels like loss.</td><td>“You cannot shorten my text, every sentence matters.”</td><td>Reassure the expert that meaning is kept. Show the chain goal – format – result. Offer reference materials as a home for the full text.</td></tr>
-<tr><td><b>Effort justification</b></td><td>People value what cost them a lot of effort (Aronson &amp; Mills, 1959). The expert believes learners must go through the same long and difficult path. Related to the authorship effect, but it concerns the path, not the text.</td><td>“I learned it the hard way, from the original sources. They should do the same, otherwise nothing will stick.”</td><td>Separate the goal from the path. Agree on the result first, then show a shorter route to it. Offer the difficult path as optional enrichment.</td></tr>
+<tr><td><b>Curse of knowledge</b></td><td>Once you know something, it is hard to imagine not knowing it (Camerer et al., 1989). The expert skips steps and underestimates difficulty.</td><td>“It’s obvious, you just write the summary.”</td></tr>
+<tr><td><b>Illusion of others’ competence</b></td><td>Experts systematically overestimate what novices already know and how fast they learn (Hinds, 1999).</td><td>“Everybody at this level knows the basics.”</td></tr>
+<tr><td><b>Underestimation of learners</b></td><td>The mirror image of the previous bias. The expert believes the subject is too difficult for learners, so explains every detail at length or simplifies until the content becomes inaccurate.</td><td>“They will never understand this without the full theory first.” “Just give them a list of phrases, the rest is too complicated.”</td></tr>
+<tr><td><b>Focus on exceptions</b></td><td>Rare, dramatic cases are the most memorable, so they crowd out typical everyday tasks.</td><td>“Let me tell you about the candidate who…”</td></tr>
+<tr><td><b>Redundancy effect</b></td><td>The expert wants to add more and more. In cognitive load theory, extra information that learners do not need reduces learning (Chandler &amp; Sweller, 1991).</td><td>“We must also include the full history of the standard.”</td></tr>
+<tr><td><b>Status quo and resistance to change</b></td><td>People prefer the current state of affairs even when an alternative is better (Samuelson &amp; Zeckhauser, 1988).</td><td>“We have always taught it with lectures, and it works.”</td></tr>
+<tr><td><b>Law of the instrument</b></td><td>A method that has worked for years is applied everywhere, even where it does not fit. “If all you have is a hammer, everything looks like a nail” (Kaplan, 1964; Maslow, 1966). Unlike the status quo bias, the expert may welcome a new course but fills it with the same familiar tool.</td><td>“Translation and a vocabulary test, that is how I prepare all my students.” “Let’s make every module a webinar.”</td></tr>
+<tr><td><b>Authorship effect</b></td><td>People value what they have created themselves more highly (the IKEA effect; Norton et al., 2012). Editing feels like loss.</td><td>“You cannot shorten my text, every sentence matters.”</td></tr>
+<tr><td><b>Effort justification</b></td><td>People value what cost them a lot of effort (Aronson &amp; Mills, 1959). The expert believes learners must go through the same long and difficult path. Related to the authorship effect, but it concerns the path, not the text.</td><td>“I learned it the hard way, from the original sources. They should do the same, otherwise nothing will stick.”</td></tr>
 </tbody></table></div>
 </article>
 
 <article class="card full">
 <div class="tag"><span class="dot"></span>Interactive test</div>
-<h3>Bias detective</h3>
+<h3>Identification of Expert Biases in Workplace Situations</h3>
 <p>Each situation shows one expert bias. Read the signs carefully, choose the bias and check your answer. Some situations look alike on purpose. Pay attention to what exactly the expert defends: a text, a method, a path, a format or an opinion about learners.</p>
 <div class="ex" data-exercise="bias"></div>
 </article>
 
-<article class="card practice half">
-<div class="tag"><span class="dot"></span>In class task</div>
-<h3>Task 2 – Forecast the biases of your expert</h3>
-<p>Based on what you already know about your expert and the client organisation, predict which biases are most likely and plan how you will respond. Return to this task after the real interview and add what you actually observed.</p>
-<div class="ws" data-task="t2"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
-</article>
-
-<article class="card half">
+<article class="card full">
 <div class="tag"><span class="dot"></span>Group output</div>
-<h3>Task 3 – Draft a working agreement</h3>
+<h3>Task 2 – Draft a working agreement</h3>
 <p>Most conflicts with experts come from unclear expectations. Agree on the rules of collaboration at the start, not at the moment when you already need everything delivered.</p>
 <div class="ws" data-task="t3"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
 </article>
 
 <article class="card full">
-<div class="tag"><span class="dot"></span>Case for discussion</div>
-<h3>Typical designer mistakes in working with experts</h3>
-<p>Problems are not always on the expert’s side. Discuss in your team which of these mistakes you have already seen, in this course or in your internship.</p>
-<div class="ws-scroll"><table>
-<thead><tr><th>Mistake</th><th>Why it happens</th><th>How to fix it</th></tr></thead>
-<tbody>
-<tr><td>Taking the task literally, without clarifying details</td><td>Desire to be “helpful immediately”</td><td>Always ask “What should change in learners’ behaviour after the training?”</td></tr>
-<tr><td>Not defining success criteria</td><td>It seems obvious that “everything will be clear by the end”</td><td>Introduce the question “How will we know that the training was successful?”</td></tr>
-<tr><td>Speaking in “designer jargon”</td><td>Wish to demonstrate professional expertise</td><td>Translate terminology into the language of usefulness, for example “scenario” becomes “practice exercise”, “SCORM” becomes “online module”.</td></tr>
-<tr><td>Agreeing on everything verbally</td><td>Confidence that “everyone understood everything”</td><td>After each meeting, send a short written summary and an action plan.</td></tr>
-<tr><td>Giving the expert “too much freedom”</td><td>Fear of overloading or restricting the expert</td><td>Use templates, frameworks, skill maps and content matrices to structure input.</td></tr>
-<tr><td>Letting the expert dictate the methodology</td><td>Fear of “arguing with the expert”</td><td>Offer alternatives through prototypes, case studies or comparable examples.</td></tr>
-<tr><td>Doing everything “turnkey”, without distributing roles</td><td>Desire to simplify communication</td><td>Define roles clearly from the start: who does what, and for what purpose. Use the RACI matrix from the CNA.</td></tr>
-</tbody></table></div>
+<div class="tag"><span class="dot"></span>In class task</div>
+<h3>Task 3 – Analyse typical designer mistakes</h3>
+<p>Problems are not always on the expert’s side. Designers make predictable mistakes too. For each mistake, first explain why it is a mistake: what goes wrong in the project because of it. Then suggest how a designer could avoid or fix it. Discuss in your team which of these mistakes you have already seen, in this course or in your internship.</p>
+<div class="ws" data-task="t12"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</article>
+
+</div>
+</section>
+
+<!-- ============================ SELF-CHECK ============================ -->
+<section class="section" id="self">
+<div class="component-banner">
+<div class="component-no self-no">Self</div>
+<div class="component-title"><h2>Self-Check. Your Own Thinking Traps</h2><p>You are becoming an expert in instructional design, and the same biases apply to you.</p></div>
+</div>
+
+<div class="grid">
+<article class="card full">
+<div class="callout" style="margin-top:0"><strong>Before you start.</strong> These three activities are not graded and there is no ideal score. They show tendencies in particular situations, not stable personal traits. Your first attempt is saved and visible only to you and to the teacher, who sees a summary by group. Answer honestly: choose what you would actually do, not what seems expected.</div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Self-assessment 1</div>
+<h3>Situational Judgement in an Instructional Design Project</h3>
+<p>Twelve situations from a typical design project. All options are professional and could be defended in a meeting. Choose the one closest to what you would really do. At the end you will see which biases your choices reflect and what each option stood for.</p>
+<div class="ex" data-exercise="sjt"></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Self-assessment 2</div>
+<h3>Format Selection for Different Learning Goals</h3>
+<p>Choose one main format for each of five very different goals. Then look at the pattern of your choices. Do you choose the format from the goal, or do you have a favourite tool?</p>
+<div class="ex" data-exercise="formats"></div>
+</article>
+
+<article class="card full">
+<div class="tag"><span class="dot"></span>Self-assessment 3</div>
+<h3>Estimating What Others Know</h3>
+<p>For each term, answer two questions. Could you explain it to a client in two sentences right now? What share of the students on this course could do the same? Your estimates are then compared with the real answers of the course. This shows how well you judge other people’s knowledge, which is the mechanism behind the curse of knowledge.</p>
+<div class="ex" data-exercise="calib"></div>
 </article>
 </div>
 </section>
@@ -270,7 +302,7 @@ details.bank > summary{font-size:1.02rem}
 <div class="details-body">
 <p class="ws-hint">Open the bank when you write your own interview guide in Task 4. Try the exercise below first.</p>
 <details>
-<summary>1 Open-ended questions to start the conversation</summary>
+<summary>1 Open-ended questions. Starting the conversation</summary>
 <div class="details-body"><p class="ws-hint">Help the expert warm up and reveal context.</p><ul>
 <li>What is considered most important in your subject?</li>
 <li>What types of tasks do you deal with most frequently?</li>
@@ -280,7 +312,7 @@ details.bank > summary{font-size:1.02rem}
 </ul></div>
 </details>
 <details>
-<summary>2 Questions aimed at identifying actions</summary>
+<summary>2 Action questions. Identifying what learners must do</summary>
 <div class="details-body"><ul>
 <li>What exactly should a learner be able to do after the course?</li>
 <li>How do you know when a student has mastered a particular skill?</li>
@@ -289,7 +321,7 @@ details.bank > summary{font-size:1.02rem}
 </ul></div>
 </details>
 <details>
-<summary>3 Clarifying and specifying questions</summary>
+<summary>3 Clarifying questions. Making answers specific</summary>
 <div class="details-body"><ul>
 <li>What does “understanding the model” mean in practical terms? How is it shown in learner behaviour or output?</li>
 <li>What happens if a learner does this incorrectly?</li>
@@ -299,14 +331,14 @@ details.bank > summary{font-size:1.02rem}
 </ul></div>
 </details>
 <details>
-<summary>4 Diagnostic questions</summary>
+<summary>4 Diagnostic questions. Finding where errors occur</summary>
 <div class="details-body"><ul>
 <li>Where do errors occur most often in this skill area?</li>
 <li>Which mistakes are critical, and which are minor or acceptable?</li>
 </ul></div>
 </details>
 <details>
-<summary>5 Questions for collecting cases, examples and context</summary>
+<summary>5 Case and context questions. Collecting examples</summary>
 <div class="details-body"><ul>
 <li>Could you describe a typical exam situation?</li>
 <li>What was the most illustrative case or success story from your experience?</li>
@@ -315,7 +347,7 @@ details.bank > summary{font-size:1.02rem}
 </ul></div>
 </details>
 <details>
-<summary>6 Questions for identifying the essentials and filtering out the noise</summary>
+<summary>6 Essentials questions. Filtering out the noise</summary>
 <div class="details-body"><ul>
 <li>Without which knowledge or skill could a learner not perform effectively?</li>
 <li>What could be provided as optional reference material instead of core training?</li>
@@ -324,7 +356,7 @@ details.bank > summary{font-size:1.02rem}
 </ul></div>
 </details>
 <details>
-<summary>7 Questions for gathering assessment criteria</summary>
+<summary>7 Assessment criteria questions. Telling strong from weak</summary>
 <div class="details-body"><ul>
 <li>How do you tell a strong performance from a weak one?</li>
 <li>Do you have a checklist or marking criteria for evaluation?</li>
@@ -368,6 +400,7 @@ details.bank > summary{font-size:1.02rem}
 <div class="task">
 <ol>
 <li>Write 10–14 questions covering all seven parts of the interview.</li>
+<li>Use at least four of the seven question types from the question bank.</li>
 <li>Include at least two of the four techniques: real case, employee with an error, before and after, playing the newcomer.</li>
 <li>For every question, state what you want to learn and how it will help the course.</li>
 <li>Plan the interview for 40–45 minutes. Mark the questions you can skip if time runs short.</li>
@@ -398,54 +431,11 @@ details.bank > summary{font-size:1.02rem}
 <section class="section" id="s3">
 <div class="component-banner">
 <div class="component-no">3</div>
-<div class="component-title"><h2>Conduct the Interview</h2><p>Rehearse with a simulated expert in class, then interview the real expert and confirm everything in writing.</p></div>
+<div class="component-title"><h2>Conduct the Interview</h2><p>Interview the real expert using your guide, then confirm everything in writing.</p></div>
 </div>
 <div class="export-bar"><button type="button" class="export-btn" data-export="3">Export Stage 3 as PDF</button><span class="export-note">Includes your group profile and all answers in this stage.</span></div>
 
 <div class="grid">
-<article class="card full">
-<div class="tag"><span class="dot"></span>In class simulation</div>
-<h3>Rehearsal with role cards</h3>
-<p>Work in groups of three. One person is the <b>designer</b>, one is the <b>expert</b> and one is the <b>observer</b>. The expert reads a role card and plays the hidden behaviour without naming it. The designer interviews the expert for 12 minutes using the team’s guide. The observer takes notes and tries to identify the bias. Then discuss for 5 minutes and rotate roles.</p>
-<div class="chips"><span class="chip">12 minutes interview</span><span class="chip">5 minutes feedback</span><span class="chip">3 rounds</span></div>
-<details>
-<summary>Role cards – read only the card you play</summary>
-<div class="details-body">
-<div class="canvas">
-<div class="canvas-box"><strong>Card A – The examiner</strong>
-<p>You are Dr Irina Sokolova, a senior examiner of an international English exam with 20 years of experience. The client wants an online preparation course for the writing paper.</p>
-<p class="ws-hint">Hidden behaviour. Use examiner terminology freely and do not explain it. Keep returning to rare cases: plagiarism, a candidate who wrote a poem, an appeal. Say “it is obvious” about basic steps.</p></div>
-<div class="canvas-box"><strong>Card B – The busy engineer</strong>
-<p>You are Andrei Morozov, lead process engineer in an energy company. The client wants an ESP course on technical meetings in English for young engineers.</p>
-<p class="ws-hint">Hidden behaviour. You have little time and answer in short phrases. You assume the learners “already know all this”. Open up only when the designer asks about a concrete case or a junior colleague’s mistake.</p></div>
-<div class="canvas-box"><strong>Card C – The author</strong>
-<p>You are Elena Kuznetsova, head of a university English department and co-author of the current course book. The client wants to move the course online.</p>
-<p class="ws-hint">Hidden behaviour. You believe the course book already works and see no reason to change it. You react badly to any suggestion to shorten or rewrite “your” units. You soften when the designer shows a prototype or a comparable example.</p></div>
-<div class="canvas-box"><strong>Card D – The encyclopaedist</strong>
-<p>You are Mark Davies, a legal translator and partner in a law firm. The client wants a Legal English module for junior lawyers.</p>
-<p class="ws-hint">Hidden behaviour. You want to include everything: the history of contract law, a 300-term glossary, every exception. You find it hard to say what is essential. You cooperate when the designer offers to put detail into reference materials.</p></div>
-</div>
-<p class="ws-hint">All names and situations are fictional.</p>
-</div>
-</details>
-<h4>Observer checklist</h4>
-<ul>
-<li>Did the designer explain the purpose and the time frame of the meeting?</li>
-<li>Did the questions focus on actions, mistakes and criteria rather than on knowledge?</li>
-<li>Did the designer ask for at least one real case?</li>
-<li>Did the designer avoid professional jargon?</li>
-<li>Did the designer notice the expert’s bias and respond to it calmly?</li>
-<li>Did the designer close with a teach-back summary and next steps?</li>
-</ul>
-</article>
-
-<article class="card full">
-<div class="tag"><span class="dot"></span>In class task</div>
-<h3>Task 6 – Keep a rehearsal log</h3>
-<p>After every round, record what happened. Use the log to improve your interview guide in Task 4 before the real interview.</p>
-<div class="ws" data-task="t6"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
-</article>
-
 <article class="card theory">
 <div class="tag"><span class="dot"></span>Theory</div>
 <h3>After the meeting, write it down</h3>
@@ -462,7 +452,7 @@ details.bank > summary{font-size:1.02rem}
 
 <article class="card practice">
 <div class="tag"><span class="dot"></span>Group output</div>
-<h3>Task 7 – Write the follow-up summary and action plan</h3>
+<h3>Task 6 – Write the follow-up summary and action plan</h3>
 <p>Complete this task after the interview with your real expert. Send the text to the expert and record when it was confirmed.</p>
 <div class="ws" data-task="t7"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
 </article>
@@ -473,7 +463,7 @@ details.bank > summary{font-size:1.02rem}
 <section class="section" id="s4">
 <div class="component-banner">
 <div class="component-no">4</div>
-<div class="component-title"><h2>Turn Expertise into Learning Content</h2><p>Organise what the expert told you around learner actions, so that it becomes the basis of your course map.</p></div>
+<div class="component-title"><h2>Turn Expertise into Learning Content</h2><p>Reformulate what the expert says as observable learner actions, so that it can later become the basis of your course map.</p></div>
 </div>
 <div class="export-bar"><button type="button" class="export-btn" data-export="4">Export Stage 4 as PDF</button><span class="export-note">Includes your group profile and all answers in this stage.</span></div>
 
@@ -495,30 +485,19 @@ details.bank > summary{font-size:1.02rem}
 
 <article class="card practice">
 <div class="tag"><span class="dot"></span>In class task</div>
-<h3>Task 8 – Rewrite knowledge statements as actions</h3>
-<p>Experts usually formulate goals as knowledge: “they must know the model”. Knowing the model is not a goal. Applying the model in practice is a goal. Take formulations from your interview and rewrite them as observable actions.</p>
+<h3>Task 7 – Reformulate expert statements as learner actions</h3>
+<p>Experts usually formulate goals as knowledge: “they must know the model”. Knowing the model is not a goal. Applying the model in practice is a goal. Study the two examples, then reformulate each statement in the table below as an observable action of the learner, in the language of the design team.</p>
 <div class="prompt-list">
-<div class="qpair"><div><div class="weak"><strong>Expert says:</strong> Students should understand the structure of a business email.</div></div><div class="better"><strong>Action:</strong> Students write a request email to an unfamiliar partner that a native-speaking colleague would send without changes.</div></div>
-<div class="qpair"><div><div class="weak"><strong>Expert says:</strong> Engineers must know the vocabulary of safety procedures.</div></div><div class="better"><strong>Action:</strong> Engineers explain a safety procedure to a foreign contractor during a site briefing and check that it has been understood.</div></div>
+<div class="qpair"><div><div class="weak"><strong>Expert says:</strong> Students should know how to write an abstract.</div></div><div class="better"><strong>For the design team:</strong> Students write a 150-word abstract of their own study that a journal editor accepts without structural changes.</div></div>
+<div class="qpair"><div><div class="weak"><strong>Expert says:</strong> Managers should understand how a presentation is structured.</div></div><div class="better"><strong>For the design team:</strong> Managers deliver a five-minute project update in English that colleagues can summarise in one sentence afterwards.</div></div>
 </div>
-<div class="ws" data-task="t8"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
 </article>
 
 <article class="card full">
-<div class="tag"><span class="dot"></span>Group output</div>
-<h3>Task 9 – Build the content matrix</h3>
-<p>The content matrix is the bridge between the interview and your course map. Each row is one target action. Fill it in together with the expert, or fill it in yourselves and send it to the expert for checking.</p>
-<div class="task">
-<ol>
-<li>Add one row for every target action from Task 8.</li>
-<li>For each action, fill in what learners need to know, the steps, the typical mistakes and the quality criteria.</li>
-<li>Record the cases, examples and authentic materials the expert offered.</li>
-<li>Set a priority for every row. <b>Core</b> means it is trained in the course. <b>Practice later</b> means it develops on the job. <b>Reference only</b> means it goes into supplementary materials.</li>
-<li>Check that critical mistakes named by the expert appear in your assessment criteria.</li>
-</ol>
-</div>
-<div class="ws" data-task="t9"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+<div class="tag"><span class="dot"></span>Your reformulations</div>
+<div class="ws" data-task="t8"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
 </article>
+
 </div>
 </section>
 
@@ -593,32 +572,10 @@ details.bank > summary{font-size:1.02rem}
 </article>
 
 <article class="card full">
-<div class="tag"><span class="dot"></span>In class task</div>
-<h3>Task 10 – Plan your responses</h3>
-<p>Choose at least three situations that are realistic for your project. For each one, write what you will say to the expert and what you will do or send. Use exact phrases you could say in English.</p>
-<div class="ws" data-task="t10"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
-</article>
-
-<article class="card full">
-<div class="tag"><span class="dot"></span>Examples – weak and better review requests</div>
-<div class="prompt-list">
-<div class="qpair"><div><span class="err-type">Open invitation to rewrite</span><div class="weak"><strong>Weak:</strong> Here is Module 2. What do you think?</div></div><div class="better"><strong>Better:</strong> Please check Module 2 against three questions. Is it consistent with your professional view? Is anything critical missing? Are the formulations accurate? Comments in the document by Friday, please.</div></div>
-<div class="qpair"><div><span class="err-type">No scope</span><div class="weak"><strong>Weak:</strong> Please review the course.</div></div><div class="better"><strong>Better:</strong> Please review only the five practice tasks in Unit 3. The design of the platform and the layout are not part of this review.</div></div>
-</div>
-</article>
-
-<article class="card full">
 <div class="tag"><span class="dot"></span>Group output</div>
-<h3>Task 11 – Prepare a review request for the expert</h3>
+<h3>Task 8 – Prepare a review request for the expert</h3>
 <p>Prepare the request you will send with the first draft of your materials. A clear request protects you from both silence and a complete rewrite.</p>
 <div class="ws" data-task="t11"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
-</article>
-
-<article class="card full">
-<div class="reflection">
-<h3>Reflection</h3>
-<p>Which of the expert biases do you recognise in yourself, now that you are becoming an expert in instructional design? How will you avoid the curse of knowledge when you explain your design decisions to the client?</p>
-</div>
 </article>
 
 <article class="card full">
@@ -657,7 +614,6 @@ if (location.protocol === "file:") document.addEventListener("DOMContentLoaded",
   document.body.insertBefore(d, document.body.firstChild);
 });
 </script>
-<script src="assets/exercises.js"></script>
 <script type="module" src="assets/experts.js"></script>
 </body>
 </html>

@@ -493,7 +493,7 @@ export function createWorkspace({ G, root, title, components, tasks }) {
         const fields = part.fields || [{}];
         out.push(pdfTable(part.cols, part.rows.map((label, r) => [cell(label, { bold: true, color: "#273b60" }),
           ...fields.map((f, i) => cell(fields.length === 1 ? get(data || {}, `r${r}`) : get(data || {}, `r${r}/f${i}`)))]),
-          fields.length === 1 ? ["35%", "*"] : ["25%", "18%", "*"]));
+          fields.length === 1 ? ["35%", "*"] : fields.every(f => f.kind === "textarea") ? ["26%", ...fields.map(() => "*")] : ["25%", "18%", "*"]));
         break;
       }
       case "rows": {
