@@ -131,6 +131,7 @@ assets/  (db.js, group.js, cna.js, experts.js, kanban.js, seminar.js, admin.js, 
 | `members/g1…g5` | состав команд | все зарегистрированные |
 | `groups/gN/profile` | профиль команды для PDF | команда и преподаватель |
 | `cna/gN` | ответы CNA | команда и преподаватель |
+| `coursemap/gN` | карта курса (Course Map) | команда и преподаватель |
 | `kanban/gN` | задачи Kanban | команда и преподаватель |
 | `stakeholder/gN` | ответы команды по кейсам Stakeholder Analysis | команда и преподаватель |
 | `seminarWorkspace/groupN` | архив: тексты из прежней версии страницы Stakeholder Analysis | показываются в Teacher panel |
@@ -149,6 +150,7 @@ assets/  (db.js, group.js, cna.js, experts.js, kanban.js, seminar.js, admin.js, 
 |---|---|---|
 | Stakeholder Analysis | `assets/stakeholder.js` | `stakeholder/` |
 | Comprehensive Needs Analysis | `assets/cna.js` | `cna/` |
+| Course Map | `assets/coursemap.js` (свой редактор-дерево, не через workspace.js) | `coursemap/` |
 
 Новый раздел (например, Instructional Design, Communication with Experts, Material Design) добавляется так: новая HTML-страница + файл схемы + одна строка в правилах базы (по образцу `cna`). Готовые типы блоков:
 `fixed` (таблица с заданными строками), `rows` (таблица с добавлением строк), `fields` (текстовые ответы), `checks` (чек-лист), `assess` (оценка стейкхолдеров), `plots` (матрицы и сводка), `raci` (RACI с проверкой).

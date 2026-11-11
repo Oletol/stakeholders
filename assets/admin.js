@@ -29,7 +29,7 @@ if (!G.isAdmin) {
     <tr><td><b>Group ${g}</b></td>
     <td><input type="text" data-company="g${g}" maxlength="120" placeholder="Company name"></td>
     <td data-members="g${g}"></td>
-    <td class="links"><a href="cna.html?group=${g}">CNA</a><a href="experts.html?group=${g}">Experts</a><a href="kanban.html?group=${g}">Kanban</a></td></tr>`).join("");
+    <td class="links"><a href="cna.html?group=${g}">CNA</a><a href="experts.html?group=${g}">Experts</a><a href="coursemap.html?group=${g}">Course Map</a><a href="kanban.html?group=${g}">Kanban</a></td></tr>`).join("");
   teamRows.querySelectorAll("[data-company]").forEach(inp => {
     let t;
     inp.addEventListener("input", () => {
@@ -95,7 +95,7 @@ if (!G.isAdmin) {
   });
 
   /* viewing other teams' work */
-  const SHARE = [["stakeholder", "Stakeholder Analysis"], ["cna", "Comprehensive Needs Analysis"], ["experts", "Working with Experts"], ["kanban", "Kanban"]];
+  const SHARE = [["stakeholder", "Stakeholder Analysis"], ["cna", "Comprehensive Needs Analysis"], ["experts", "Working with Experts"], ["coursemap", "Course Map"], ["kanban", "Kanban"]];
   const shareRows = document.getElementById("shareRows");
   let share = {};
   function renderShare() {

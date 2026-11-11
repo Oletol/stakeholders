@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Map</title>
+<style>
+:root{--navy:#12213f;--blue:#294f8a;--blue2:#3f6fb0;--ink:#1f2937;--muted:#667085;--line:#d9e1ec;--soft:#f5f8fc;--soft2:#eef3f9;--gold:#b77a18;--green:#2f6f5e;--red:#8d4550;--teal:#1f8a70;--radius:18px;--shadow:0 12px 32px rgba(18,33,63,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:#edf2f8;line-height:1.62}
+.nav-wrap{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 4px 16px rgba(18,33,63,.04)}
+.nav{max-width:1280px;margin:0 auto;padding:10px 18px;display:flex;gap:8px;overflow:auto}.nav a{text-decoration:none;white-space:nowrap;font-size:.88rem;font-weight:750;color:#344054;padding:9px 12px;border-radius:10px}.nav a:hover,.nav a.active{background:var(--soft2);color:var(--navy)}
+main{max-width:1280px;margin:0 auto;padding:24px 18px 80px}.section{margin:0 0 36px;scroll-margin-top:80px}
+.component-banner{display:grid;grid-template-columns:54px 1fr;gap:16px;align-items:center;margin-bottom:16px}.component-no{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:850}
+.component-title{background:linear-gradient(135deg,#eef4fb 0%,#dfe9f4 100%);border:1px solid var(--line);border-radius:16px;padding:16px 20px}.component-title h2{margin:0;color:var(--navy);font-size:1.45rem;line-height:1.2}.component-title p{margin:5px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}.theory{grid-column:span 6}.half{grid-column:span 6}.full{grid-column:1/-1}
+.card h3{margin:0 0 10px;color:var(--navy);font-size:1.06rem}.card h4{margin:18px 0 8px;color:#2d4165;font-size:.96rem}.tag{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#465873;margin-bottom:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--blue2)}.practice .dot{background:var(--gold)}
+.callout{border-left:4px solid var(--blue2);background:var(--soft);padding:14px 16px;border-radius:12px;margin:14px 0}.callout strong{color:var(--navy)}ul,ol{padding-left:22px}li+li{margin-top:6px}
+.task{margin-top:14px;padding:16px;border:1px dashed #b7c5d8;border-radius:14px;background:#fbfcfe}
+table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:12px;background:#fff}th,td{padding:10px 12px;text-align:left;vertical-align:top;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}th{background:#edf3fb;color:var(--navy);font-size:.86rem}tr:last-child td{border-bottom:none}th:last-child,td:last-child{border-right:none}
+details{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}summary{cursor:pointer;padding:14px 16px;font-weight:850;color:var(--navy);background:#f7f9fc;list-style:none}.details-body{padding:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}.chip{padding:7px 10px;border-radius:999px;background:#eef3f9;border:1px solid #d8e2ef;font-size:.86rem}
+
+/* overview: structure of the map */
+.map-head{background:#46728f;color:#fff;text-align:center;padding:18px 20px;border-radius:var(--radius) var(--radius) 0 0}
+.map-head h1{margin:0;font-size:clamp(1.6rem,4vw,2.5rem);line-height:1.1}
+.map-head p{margin:6px 0 0;color:#e3edf4;font-size:.95rem}
+.structure{background:#fff;border:1px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--shadow);padding:18px}
+.levels{display:grid;gap:8px}
+.level{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:start;border-radius:10px;padding:12px 16px;background:#f5f8fc;border:1px solid var(--line)}
+.level b{color:var(--navy)}
+.level .lv-desc{font-size:.92rem}
+.level.l1{margin-left:0;background:#dfe9f4}
+.level.l2{margin-left:0;background:#e9f0f8}
+.level.l3{margin-left:28px}
+.level.l4{margin-left:56px}
+.level.l5{margin-left:84px;background:#eaf6f2;border-color:#cfe6dd}
+.level.l5b{margin-left:84px}
+.level .prompt-ex{display:block;color:var(--muted);font-size:.84rem;margin-top:3px}
+@media(max-width:760px){.level{grid-template-columns:1fr;gap:2px}.level.l3,.level.l4,.level.l5,.level.l5b{margin-left:0}}
+
+/* map table (example and live) */
+.map-table{font-size:.84rem;min-width:1150px}
+.map-table th{font-size:.76rem;text-transform:uppercase;letter-spacing:.03em;background:#4c5b7d;color:#fff}
+.map-table th.h-mat{background:var(--teal)}
+.map-table td{padding:8px 9px}
+.map-table td.c-goal{background:#f5f8fc;font-weight:650}
+.map-table td.c-basis{font-size:.8rem;background:#fbfcfe}
+.map-table td.c-w{text-align:center;font-weight:800;white-space:nowrap}
+.map-table td.c-mat{background:#f4fbf8}
+.map-table td.c-empty{background:#fff7f8}
+.map-table .code{display:block;font-size:.7rem;font-weight:850;color:var(--blue2);text-transform:uppercase;letter-spacing:.04em}
+.map-table .nb+.nb{margin-top:5px}
+.map-table .missing{color:var(--red);font-weight:750;font-size:.8rem}
+.map-table ul.rub{margin:0;padding-left:16px}.map-table ul.rub li+li{margin-top:4px}
+.map-table .w{color:var(--blue2);font-weight:800}
+.needs-table td.code-col{font-weight:850;color:var(--blue2);white-space:nowrap;width:1%}
+.map-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.map-info>div{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fbfcfe;font-size:.92rem}
+.map-info>div:nth-child(n+3){grid-column:1/-1}
+@media(max-width:700px){.map-info{grid-template-columns:1fr}}
+
+/* editor */
+.cm-block{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:16px}
+.cm-block>h3{margin:0 0 6px;color:var(--navy);font-size:1.08rem}
+.cm-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.cm-info-grid .wide{grid-column:1/-1}
+.cm-field{display:block}
+.cm-field+.cm-field{margin-top:10px}
+.cm-info-grid .cm-field+.cm-field{margin-top:0}
+.cm-block input[type=text],.cm-block textarea{width:100%;border:1px solid #d7e0eb;border-radius:9px;padding:8px 9px;font:inherit;font-size:.92rem;background:#fbfcfe;color:#1f2937;outline:none}
+.cm-block textarea{min-height:58px;resize:vertical;line-height:1.45}
+.cm-block input:focus,.cm-block textarea:focus{border-color:#6b8fc0;box-shadow:0 0 0 3px rgba(63,111,176,.12);background:#fff}
+.cm-block input.cm-num{width:90px}
+.cm-comp{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fbfcfe;margin-top:10px}
+.cm-comp-head{font-weight:850;color:var(--navy);margin-bottom:6px}
+.cm-need{display:grid;grid-template-columns:70px 1fr 34px;gap:8px;align-items:start;margin-top:6px}
+.cm-code{font-weight:850;color:var(--blue2);padding-top:8px;font-size:.88rem}
+.cm-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.cm-tag{display:inline-block;font-size:.74rem;font-weight:850;text-transform:uppercase;letter-spacing:.05em;padding:4px 10px;border-radius:999px;color:#fff}
+.cm-tag.goal{background:var(--navy)}.cm-tag.obj{background:var(--blue2)}.cm-tag.tool{background:#6b5a99}.cm-tag.act{background:var(--teal)}
+.cm-goal{border:1px solid #c9d5e4;border-left:6px solid var(--navy);border-radius:16px;padding:14px 16px;margin-top:14px;background:#fff}
+.cm-obj{border:1px solid var(--line);border-left:5px solid var(--blue2);border-radius:14px;padding:12px 14px;margin-top:12px;background:#f8fafd}
+.cm-links{margin-top:10px}
+.cm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cm-chip{display:flex;gap:7px;align-items:flex-start;border:1px solid #d8e2ef;background:#fff;border-radius:10px;padding:6px 10px;font-size:.82rem;cursor:pointer;max-width:100%}
+.cm-chip:has(input:checked){border-color:var(--blue2);background:#eef4fb}
+.cm-chip input{margin-top:3px}
+.cm-chip b{color:var(--blue2)}
+.cm-cols{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:10px}
+.cm-col{border-radius:12px;padding:10px;background:#fff;border:1px solid var(--line)}
+.cm-col-head{font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.cm-col.assess .cm-col-head{color:#6b5a99}.cm-col.learn .cm-col-head{color:var(--teal)}
+.cm-item{border:1px dashed #c9d5e4;border-radius:12px;padding:10px;margin-bottom:10px;background:#fbfcfe}
+.cm-row2{display:grid;grid-template-columns:1fr 100px;gap:10px;align-items:start}
+.cm-row2 .cm-field+.cm-field{margin-top:0}
+.cm-rubric{margin-top:10px}
+.cm-rub-table{margin-top:4px}
+.cm-rub-table th{font-size:.74rem;padding:6px 8px}
+.cm-rub-table td{padding:5px}
+.cm-rub-table td textarea{min-height:44px}
+.cm-sum,.cm-total{font-size:.8rem;font-weight:800;margin-top:4px}
+.cm-sum.ok,.cm-total.ok{color:var(--green)}.cm-sum.warn,.cm-total.warn{color:var(--red)}
+.cm-total{display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:.88rem}
+.ws-btn.small{padding:5px 10px;font-size:.8rem}
+.ws-btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.ws-btn.primary:hover{background:#213d6d}
+.del-col{width:1%}
+.check-list{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}
+.check-list li{padding:8px 12px;border-radius:10px;font-size:.9rem;font-weight:650}
+.check-list li+li{margin-top:0}
+.check-list li.ok{background:#eaf3ef;color:#2f6f5e}
+.check-list li.warn{background:#fff7f8;color:#7a3541;border:1px solid #f0d6db}
+@media(max-width:900px){.theory,.half{grid-column:1/-1}.cm-cols{grid-template-columns:1fr}.cm-info-grid{grid-template-columns:1fr}}
+body.view-only .cm-block .ws-btn,body.view-only .cm-block .row-del{display:none !important}
+body.view-only .cm-block :disabled{background:#f6f4fa;color:#344054;opacity:1;cursor:default}
+</style>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-bar"><div class="site-bar-inner">
+<a class="site-title" href="index.html" data-keep-group>Stakeholder Communication</a>
+<nav class="site-links" aria-label="Site pages">
+<a href="index.html" data-keep-group>Stakeholder Analysis</a>
+<a href="cna.html" data-keep-group>Comprehensive Needs Analysis</a>
+<a href="experts.html" data-keep-group>Working with Experts</a>
+<a href="coursemap.html" data-keep-group aria-current="page">Course Map</a>
+<a href="kanban.html" data-keep-group>Kanban</a>
+</nav></div></header>
+<div class="group-bar" id="groupBar"></div>
+<div class="nav-wrap">
+<nav class="nav" id="topnav">
+<a href="#overview">Overview</a>
+<a href="#logic">Course map logic</a>
+<a href="#example">Example</a>
+<a href="#build">Build your course map</a>
+<a href="#map">Course map table</a>
+</nav>
+</div>
+
+<main>
+
+<section class="group-profile" id="groupProfile"></section>
+
+<section class="section" id="overview">
+<div class="map-head">
+<h1>Course Map</h1>
+<p>From the client's request and the needs analysis to an aligned course design</p>
+</div>
+<div class="structure">
+<p style="margin-top:0">A course map is the central design document of your project. It shows the client how every element of the future course grows out of the needs analysis and serves the goal the client stated. Each level of the map breaks down into the next one.</p>
+<div class="levels">
+<div class="level l1"><b>Course title and the client's goal</b><span class="lv-desc">The result the client expects, written in the client's words.<span class="prompt-ex">e.g. Our engineers must take part in online meetings with partners without an interpreter.</span></span></div>
+<div class="level l2"><b>Needs analysis conclusions</b><span class="lv-desc">The main findings of Components 1.1–1.4 that influence the design, together with the teaching approach, mode and scenario of the course.</span></div>
+<div class="level l3"><b>Course goals</b><span class="lv-desc">Educational goals that translate the client's goal into what learners will understand or know. Each goal is linked to the needs conclusions it responds to.<span class="prompt-ex">Prompt: SS will understand / know …</span></span></div>
+<div class="level l4"><b>Learning objectives</b><span class="lv-desc">Observable, measurable results into which each goal is broken down.<span class="prompt-ex">Prompt: SS will be able to …</span></span></div>
+<div class="level l5b"><b>Assessment</b><span class="lv-desc">For each objective, the assessment tools, their weight in the assessment plan, the rubric (criteria, descriptors, weight) and the types of materials designed for the assessment.</span></div>
+<div class="level l5"><b>Learning activities</b><span class="lv-desc">For each objective, the activities that prepare learners for the assessment and the types of materials designed for these activities.</span></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="logic">
+<div class="component-banner">
+<div class="component-no">CM</div>
+<div class="component-title"><h2>Course Map Logic</h2><p>Alignment between needs, goals, objectives, assessment and learning.</p></div>
+</div>
+<div class="grid">
+<article class="card theory">
+<div class="tag"><span class="dot"></span>Key principles</div>
+<h3>Constructive alignment and backward design</h3>
+<p>The course map applies <b>constructive alignment</b> (Biggs &amp; Tang): learning objectives, assessment and learning activities must point at the same result. It also follows <b>backward design</b> (Wiggins &amp; McTighe): first define the results, then decide what evidence will show that learners have reached them, and only then plan the learning activities.</p>
+<h4>Client goal and course goals</h4>
+<p>The client formulates a goal in terms of the organisation's results. The designer translates it into course goals in educational terms. One client goal usually produces two to four course goals.</p>
+<h4>Goals and objectives</h4>
+<p>A course goal is broad (<i>SS will understand / know …</i>). A learning objective is specific and observable (<i>SS will be able to …</i>). A good objective names the action, the conditions and the expected level, for example the CEFR level. Use action verbs from Bloom's revised taxonomy: identify, summarise, compare, write, present, negotiate. Avoid <i>understand</i>, <i>know</i> and <i>learn</i> in objectives: they cannot be observed.</p>
+<div class="callout"><strong>Traceability:</strong> every goal must be linked to at least one needs analysis conclusion, and every conclusion should be used by at least one goal. If a conclusion is not used, either the map misses something or the conclusion does not influence the design.</div>
+</article>
+
+<article class="card theory">
+<div class="tag"><span class="dot"></span>Assessment and materials</div>
+<h3>Assessment plan, rubrics and two types of materials</h3>
+<h4>Assessment tools and the assessment plan</h4>
+<p>Each objective needs at least one assessment tool that shows whether learners have reached it. The weight of each tool in the course assessment plan is given in percent. All weights in the map add up to 100%.</p>
+<h4>Rubrics</h4>
+<p>A rubric makes the assessment transparent for learners, teachers and the client. It lists the criteria, a descriptor for each criterion and its weight. The criterion weights of one rubric add up to 100%. An automatically scored test may have one criterion.</p>
+<h4>Why the map has two columns of materials</h4>
+<table>
+<thead><tr><th>Types of materials (assessment)</th><th>Types of materials (learning)</th></tr></thead>
+<tbody><tr>
+<td>Materials designed for the assessment tools: task sheets, test items, role cards, recording instructions, rubrics for learners.</td>
+<td>Materials designed for the learning activities: texts, audio and video, worksheets, interactive exercises, models and templates.</td>
+</tr></tbody>
+</table>
+<p>For each type of material, show which needs analysis conclusion it responds to, for example authentic recordings with accented speech because research and the survey identify listening as the main difficulty.</p>
+</article>
+
+<article class="card full practice">
+<div class="tag"><span class="dot"></span>Team task</div>
+<h3>Build the course map for your client</h3>
+<div class="task">
+<ol>
+<li>Enter the course title, the client, and the course goal exactly as the client stated it.</li>
+<li>Describe the teaching approach and mode, and the course scenario. Justify them with the needs analysis.</li>
+<li>Copy the main conclusions of your Comprehensive Needs Analysis that influence the course design. One conclusion per line.</li>
+<li>Formulate the course goals and link each goal to the needs conclusions it responds to.</li>
+<li>Break each goal down into learning objectives.</li>
+<li>For each objective, add the assessment tools: weight, rubric and types of materials.</li>
+<li>For each objective, add the learning activities and their types of materials.</li>
+<li>Check the course map table and the alignment check. Fix every warning before you show the map to the client.</li>
+<li>Export the course map as a PDF for your portfolio and for the meeting with the client.</li>
+</ol>
+</div>
+<p style="margin-bottom:0">You do not need to merge cells: the course map table is built and merged automatically from what you enter.</p>
+</article>
+</div>
+</section>
+
+<section class="section" id="example">
+<div class="component-banner">
+<div class="component-no">Ex</div>
+<div class="component-title"><h2>Example Course Map</h2><p>A shortened example for a simulated client. Study how each level breaks down into the next one.</p></div>
+</div>
+<article class="card">
+<div class="tag"><span class="dot"></span>Worked example · read only</div>
+<div id="exampleMap"></div>
+</article>
+</section>
+
+<section class="section" id="build">
+<div class="component-banner">
+<div class="component-no">CM</div>
+<div class="component-title"><h2>Build Your Course Map</h2><p>Your team's working map. Changes save automatically and your team sees them live.</p></div>
+</div>
+<div class="export-bar"><button type="button" class="export-btn" data-export="map">Export course map as PDF</button><span class="export-note">Landscape A4 with course information, needs conclusions, the merged course map and the alignment check.</span></div>
+<div id="cmEditor"><div class="ws-loading">Answer fields load after you sign in. If this message does not disappear, open the site through its web address, not as a file from your computer.</div></div>
+</section>
+
+<section class="section" id="map">
+<div class="component-banner">
+<div class="component-no">CM</div>
+<div class="component-title"><h2>Course Map Table</h2><p>Built automatically from your entries. Cells are merged the same way as in the course map spreadsheet.</p></div>
+</div>
+<article class="card">
+<div class="tag"><span class="dot"></span>Your course map</div>
+<span class="cm-total" id="weightTotal"></span>
+<div id="cmMap"></div>
+<h4>Alignment check</h4>
+<ul class="check-list" id="cmCheck"></ul>
+</article>
+</section>
+
+</main>
+
+<script src="assets/vendor/pdfmake.min.js"></script>
+<script src="assets/vendor/vfs_fonts.js"></script>
+<script>
+/* Shown only when a page is opened directly from disk, where sign-in and live data cannot work */
+if (location.protocol === "file:") document.addEventListener("DOMContentLoaded", function () {
+  var d = document.createElement("div");
+  d.className = "file-warning";
+  d.innerHTML = "<b>This page is opened as a file from the computer.</b> Sign-in, answer fields and live data work only on the published website, or in Visual Studio Code via <b>Go Live</b> (Live Server extension).";
+  document.body.insertBefore(d, document.body.firstChild);
+});
+</script>
+<script type="module" src="assets/coursemap.js"></script>
+</body>
+</html>
